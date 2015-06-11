@@ -1,0 +1,66 @@
+<html>
+<head><title>memory game</title>
+<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body onload="init()">
+	<div id="main">
+		<div id="container_wrapper" class="container_wrapper">
+
+		</div>
+	</div>
+	<div id="config">
+	<form id="game_vals">
+
+		<!-- plot wide by tall -->
+		<label>cells_wide
+			<select class="cells_wide" name="cellswide" />
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+			<select>
+		</label>
+		<label>cells_high
+			<select class="cells_high" name="cellsheigh" />
+				<option value="2">2</option>
+				<option value="3">3</option>
+				<option value="4">4</option>
+				<option value="5">5</option>
+				<option value="6">6</option>
+			<select>
+		</label>
+
+		<!--  draw grid view  -->
+		<label>numbervariants<input class="number_variants" name="numbervariants" /></label>
+
+
+		<input type="submit" name="subit_game_vals" class="game_vals_submit">
+		<!--  update grid preview  -->
+		<!--
+		
+
+			<input class="gameWidth" /><input class="gameHeight" />
+			<input class="numberVariants" />
+			+
+			<input class="numerEachVariant" />
+			= <input class="numberMatchCards" />
+
+			<input class="numerBlankCards" />(auto-populate/override?)
+				<input class="numberBonusCells" />
+				<input class="numberTrapsCells" />
+				<input class="numberBlankCells" />(auto/(blankCards-{Bonus+Trap}))
+
+		-->
+
+	</form>
+	</div>
+	<div id="controls">
+		[pass][chat][leave]
+	</div> 
+
+
+<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
+<script type="text/javascript" src="game.js"></script>
+</body>
+</html>

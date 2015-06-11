@@ -1,0 +1,58 @@
+
+
+#main, #main .container_wrapper{
+/*	width:800px;
+	height:800px;*/
+	border:1px solid #ccc;
+
+}
+#main .container_wrapper{	background:#00ccff;
+	padding:40px;}
+.length{
+/*	width:800px;
+	height:100px;*/
+}
+
+/*
+lengthContainter.width = (800/gameWidth);
+lengthContainter.height = (800/gameHeight);
+lengthContainter.id = 'length_'+x;
+lengthContainter.className = 'length num'+x;
+*/
+.num1{background:#333;}
+.num2{background:#F33;}
+.num3{background:#3F3;}
+.num4{background:#33F;}
+.num5{background:#000;}
+.num6{background:#F00;}
+.num7{background:#0F0;}
+.num0{background:#00F;}
+
+/*
+cellContainer.width = "100px";
+cellContainer.height = "100px";
+cellContainer.id = "cell_"+x+"_"+y;
+cellContainer.className = "cell cell"+x+"_cell"+y;
+*/
+
+.cell{
+
+float:left;
+opacity:.5;
+box-shadow: 0 0 4px #000;
+
+position:relative;top:20px;left:20px;
+
+/*border:1px solid #000;width:100px;height:100px;*/}
+
+.cell0_cell0{background:#fff;opacity:.5;}.cell1_cell0{background:#f0f;opacity:.5;}.cell2_cell0{background:#f00;opacity:.8;}.cell3_cell0{background:#00f;opacity:.89;}.cell4_cell0{background:#000;opacity:.5;}.cell5_cell0{background:#fff;opacity:.5;}.cell6_cell0{background:#fff;opacity:.5;}.cell0_cell0{background:#fff;opacity:.5;}.cell0_cell0{background:#fff;opacity:.5;}.cell0_cell0{background:#fff;opacity:.5;}
+.cell0_cell1{background:#f0f;opacity:.5;}.cell1_cell1{background:#f0f;opacity:.5;}.cell2_cell1{background:#f00;opacity:.8;}.cell3_cell1{background:#00f;opacity:.89;}.cell4_cell1{background:#000;opacity:.5;}.cell5_cell1{background:#fff;opacity:.5;}.cell6_cell1{background:#fff;opacity:.5;}.cell0_cell1{background:#fff;opacity:.5;}.cell0_cell1{background:#fff;opacity:.5;}.cell0_cell1{background:#fff;opacity:.5;}
+.cell0_cell2{background:#fff;opacity:.5;}.cell1_cell2{background:#0ff;opacity:.5;}.cell2_cell2{background:#f00;opacity:.8;}.cell3_cell2{background:#00f;opacity:.89;}.cell4_cell2{background:#000;opacity:.5;}.cell5_cell2{background:#fff;opacity:.5;}.cell6_cell2{background:#fff;opacity:.5;}.cell0_cell2{background:#fff;opacity:.5;}.cell0_cell2{background:#fff;opacity:.5;}.cell0_cell2{background:#fff;opacity:.5;}
+.cell0_cell3{background:#fff;opacity:.5;}.cell1_cell3{background:#f0f;opacity:.5;}.cell2_cell3{background:#f00;opacity:.8;}.cell3_cell3{background:#00f;opacity:.89;}.cell4_cell3{background:#000;opacity:.5;}.cell5_cell3{background:#fff;opacity:.5;}.cell6_cell3{background:#fff;opacity:.5;}.cell0_cell3{background:#fff;opacity:.5;}.cell0_cell3{background:#fff;opacity:.5;}.cell0_cell3{background:#fff;opacity:.5;}
+.cell0_cell4{background:#fff;opacity:.5;}.cell1_cell4{background:#f0f;opacity:.5;}.cell2_cell4{background:#f00;opacity:.8;}.cell3_cell4{background:#00f;opacity:.89;}.cell4_cell4{background:#000;opacity:.5;}.cell5_cell4{background:#fff;opacity:.5;}.cell6_cell4{background:#fff;opacity:.5;}.cell0_cell4{background:#fff;opacity:.5;}.cell0_cell4{background:#fff;opacity:.5;}.cell0_cell4{background:#fff;opacity:.5;}
+.cell0_cell5{background:#fff;opacity:.5;}.cell1_cell5{background:#f0f;opacity:.5;}.cell2_cell5{background:#f00;opacity:.8;}.cell3_cell5{background:#00f;opacity:.89;}.cell4_cell5{background:#000;opacity:.5;}.cell5_cell5{background:#fff;opacity:.5;}.cell6_cell5{background:#fff;opacity:.5;}.cell0_cell5{background:#fff;opacity:.5;}.cell0_cell5{background:#fff;opacity:.5;}.cell0_cell5{background:#fff;opacity:.5;}
+.cell0_cell6{background:#0ff;opacity:.5;}.cell1_cell6{background:#f0f;opacity:.5;}.cell2_cell6{background:#f00;opacity:.8;}.cell3_cell6{background:#00f;opacity:.89;}.cell4_cell6{background:#000;opacity:.5;}.cell5_cell6{background:#fff;opacity:.5;}.cell6_cell6{background:#fff;opacity:.5;}.cell0_cell6{background:#fff;opacity:.5;}.cell0_cell6{background:#fff;opacity:.5;}.cell0_cell6{background:#fff;opacity:.5;}
+.cell0_cell7{background:#fff;opacity:.5;}.cell1_cell7{background:#f0f;opacity:.5;}.cell2_cell7{background:#f00;opacity:.8;}.cell3_cell7{background:#00f;opacity:.89;}.cell4_cell7{background:#000;opacity:.5;}.cell5_cell7{background:#fff;opacity:.5;}.cell6_cell7{background:#fff;opacity:.5;}.cell0_cell7{background:#fff;opacity:.5;}.cell0_cell7{background:#fff;opacity:.5;}.cell0_cell7{background:#fff;opacity:.5;}
+/*.cell0_cell8{background:#fff;opacity:.5;}
+.cell0_cell_9{background:#fff;opacity:.5;}
+.cell0_cell_0{background:#fff;opacity:.5;}*/
