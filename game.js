@@ -5,10 +5,8 @@
 	gameHeight = "500",
 	cellsWide = $(".cells_wide").val(),
 	cellsHigh = $(".cells_high").val(),
-	//numVariants = 5,
 	numVariants = $(".number_variants").val(),
 	totalCells = (cellsWide * cellsHigh);
-	//cellVariants = array(1,2,3,4,5,6,7,8);
 
 	variantClasses = [];
 	cellList = [];
@@ -47,6 +45,37 @@ $(".cells_wide, .cells_high, .number_variants").change(function(){
 	plot(containerWrapper,cellsWide,cellsHigh,numVariants);
 });
 
+rightCells = [];
+clickedCells = [];
+
+function clickCell(elem, right_cells){
+
+	var varClassRe = /variant_\d+/;
+	varClass = varClassRe.exec(elem.className);
+	var varCellRe = /cell_\d+_\d+/;
+	varCell = varCellRe.exec(elem.className);
+	
+	//if(clickedCells.indexOf(varCellRe)){return;}
+	//alert(varClass+' & '+varCell);
+
+	rightCells.push(varClass);
+	clickedCells.push(varCell);
+	alert(rightCells+' & '+clickedCells);
+
+	// for(i=0;i<=3;i++){
+	// 	if(rightCells[0]==rightCells.length){
+	// 		console.log(i+ " cells in a row!");
+	// 	} else {
+	// 		rightCells = [];
+	// 		console.log("you loose");
+	// 	}
+	// }
+}
+
+$(containerWrapper).on('click', '.cell', function(){
+	clickCell(this, rightCells);
+});
+
 function clear_children(target){
 	while (target.firstChild) {
 	    target.removeChild(target.firstChild);
@@ -56,7 +85,7 @@ function clear_children(target){
 function plot(container, cellswide, cellshigh, total_variants){
 	
 	variants = build_variants(total_variants);
-	//alert(variants+' ya');
+
 	for(x=0;x<cellshigh;x++){
 		//var cols.push(array())
 		
@@ -99,7 +128,6 @@ function plot(container, cellswide, cellshigh, total_variants){
 
  function init(){
  	plot(containerWrapper, cellsWide, cellsHigh, numVariants);
- 	//build_variants(variantClasses);
  }
 
 
