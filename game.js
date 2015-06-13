@@ -22,7 +22,7 @@
 	clickedCells = [];
 dropElements = [cellsWideUX,cellsHighUX,numVariantsUX,numEachVariantUX];
 $.each(dropElements, function () {
-	for(i=3;i<=10;i++){
+	for(i=9;i>=2;i--){
 		$(this).append('<option value="' + i + '">' + i + '</option>');
 	}
 });
@@ -64,6 +64,7 @@ $.each(dropElements, function () {
 function assign_variant(elem, variant_list, num_variants){
 	currentVariant = getRandomInt(0,num_variants);
 	theVariants[currentVariant][1]>0 ? currentVariantCount = theVariants[currentVariant][1] : currentVariantCount = "empty";
+	// dies early (remove 0-variants from subsequent calls)
 	if(currentVariantCount=="empty"){
 		elem.className = elem.className+" variant_empty";
 	}else{
