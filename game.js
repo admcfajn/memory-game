@@ -51,7 +51,7 @@ function getRandomInt(min, max) {
 }
 
 
-$(".cells_wide, .cells_high, .number_variants, .number_each_variants").change(function(){
+$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
 	cellsWide = $(".cells_wide").val();
 	cellsHigh = $(".cells_high").val();
 	numVariants = parseInt($(".number_variants").val());
