@@ -1,81 +1,85 @@
 
 	var 
 	containerWrapper = document.getElementById("container_wrapper");
-	gameWidth = "400",
-	gameHeight = "400",
+	gameWidth = "500",
+	gameHeight = "500",
 	cellsWide = $(".cells_wide").val(),
 	cellsHigh = $(".cells_high").val(),
-	numVariants = parseInt($(".number_variants").val()),
-	numEachVariant = parseInt($(".number_each_variant").val()), //toInt
+	numVariants = $(".number_variants").val(),
+	numEachVariant = $(".number_each_variant").val(),
 	totalCells = (cellsWide * cellsHigh);
 
 	variantClasses = [];
 	cellList = [];
 
+	matchScore = 0;
 	allMatched = [];
+	clickedCells = [];
 
-	cellsPicked = [];
-
-	variantList = [];
-
-function build_variants(num_variants, num_each_variant){
-	
-	for(x=0;x<=num_variants;x++){
-		variantList.push([]);
-		variantList[x].push('variant_'+x);
-		variantList[x].push(num_variants);
-		variantList[x].push(num_each_variant);//console.log(variantList);
+	theVariants = build_variants(numVariants);
+/**/
+	$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
+		cellsWide = $(".cells_wide").val();
+		cellsHigh = $(".cells_high").val();
+		numVariants = $(".number_variants").val();
+		numEachVariant = $(".number_each_variant").val();
+		clear_children(containerWrapper);
+		plot(containerWrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
+	});
+	$(containerWrapper).on('click', '.cell', function(){
+		clickCell(this);
+	});
+	function clear_children(target){
+		while (target.firstChild) {
+		    target.removeChild(target.firstChild);
+		}
 	}
-	return variantList;
-}
+	function getRandomInt(min, max) {
+	  return Math.floor(Math.random() * (max - min)) + min;
+	}
 
-function assign_variant(elem, variant_list, num_variants, num_each_variant){
+	function build_variants(num_variants){
+		variantList = [];
+		for(x=0;x<=num_variants;x++){
+			variantList.push([]);
+			variantList[x].push('variant_'+x);
+			variantList[x].push(num_variants);
+		}
+		return variantList;
+	}
+
+function assign_variant(elem, variant_list, num_variants){
 	currentVariant = getRandomInt(0,num_variants);
-	//currentVariantCount = variant_list[currentVariant][1];
-	currentVariantCount = variant_list[currentVariant][1] ? currentVariantCount = variant_list[currentVariant][1] : currentVariantCount = 'baz';
-	if(currentVariantCount){
-		elem.className = elem.className+" variant_"+currentVariant;
-		variantList[currentVariant][1] = (variant_list[currentVariant][1]-1);
-		// console.log('start');
-		// console.log(variant_list);
-		// console.log(variantList);
-		// console.log('end');
-	} else {
-		console.log('damn -- '+currentVariant+' -- '+variant_list[currentVariant][1]);
-		assign_variant(elem, variant_list);
+	theVariants[currentVariant][1]>0 ? currentVariantCount = theVariants[currentVariant][1] : currentVariantCount = "empty";
+	if(currentVariantCount=="empty"){
+		elem.className = elem.className+" variant_empty";
+	}else{
+		if(currentVariantCount){
+			elem.className = elem.className+" variant_"+currentVariant;
+			theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
+			//variant_list[currentVariant][1] = currentVariantCount--;
+		} else {
+			assign_variant(elem);
+		}
 	}
+	console.log(currentVariantCount);
 }
-
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
-
-$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
-	cellsWide = $(".cells_wide").val();
-	cellsHigh = $(".cells_high").val();
-	numVariants = parseInt($(".number_variants").val());
-	numEachVariant = parseInt($(".number_each_variant").val());
-	clear_children(containerWrapper);
-	plot(containerWrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
-});
 
 function clickCell(elem){
-	matchScore = allMatched.length;
-	var varClassRe = /variant_\d+/; varClass = varClassRe.exec(elem.className);
-	var varCellRe = /cell_\d+_\d+/; varCell = varCellRe.exec(elem.className);
+// todo: fix click on "empty" - shift assigment index? loop "empty" to assign bonus / traps
+// add "empty" exception in rand# +1 to max include "empty" before indexes reach 0
+	var varClassRe = /variant_\d+/;varClass = varClassRe.exec(elem.className);
+	var varCellRe = /cell_\d+_\d+/;varCell = varCellRe.exec(elem.className);
 	
-	//if(cellsPicked.indexOf(varCellRe)){return;}
+	//if(clickedCells.indexOf(varCellRe)){return;}
 	//alert(varClass+' & '+varCell);
 
 	allMatched.push(varClass);
-	cellsPicked.push(varCell);
-	console.log(allMatched+' & '+cellsPicked);
+	clickedCells.push(varCell);
 
+	console.log('right cells '+allMatched); console.log(' & clicked cells '+clickedCells);
 	for(i=0;i<allMatched.length;i++){
-		// console.log( "thisthat " + allMatched[0][0]+' - '+allMatched[i][0] );
-		// console.log("all matched "+allMatched);
-
+		// console.log( "... " + allMatched[0][0]+' - '+allMatched[i][0] );
 		if(allMatched[0][0]==allMatched[i][0]){
 			matchScore++;
 			console.log("win "+matchScore+" in a row");
@@ -86,30 +90,13 @@ function clickCell(elem){
 			console.log("loose");
 		}
 	}
-
-	//if(matchScore==)
-
-	// if(matchScore>0){
-	// 	console.log("great you matched "+matchScore);
-	// }else{
-	// 	console.log("Why you gotta make me do this?.. Start over");
-	// }
-
 }
 
-$(containerWrapper).on('click', '.cell', function(){
-	clickCell(this);
-});
 
-function clear_children(target){
-	while (target.firstChild) {
-	    target.removeChild(target.firstChild);
-	}
-}
 
 function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 	
-	variants = build_variants(num_variants, num_each_variant);
+	variants = theVariants;
 
 	for(x=0;x<cellshigh;x++){
 		//var cols.push(array())
@@ -143,9 +130,8 @@ function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 					cellList[cellCoords].push("cell_"+x+"_"+y);
 					cellList[cellCoords].push(num_variants);
 
-					assign_variant(cellContainer, variants, num_variants, num_each_variant);
-					//alert(cellList);
-					//assign_variant(cellContainer);
+					assign_variant(cellContainer, variants, num_variants);
+					//alert(cellList);assign_variant(cellContainer);
 			}
 	}
 }

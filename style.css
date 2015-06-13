@@ -1,13 +1,10 @@
 
 
 #main, #main .container_wrapper{
-	/*	
-	width:800px;
-	height:800px;*/
 	border:1px solid #ccc;
 }
 #main .container_wrapper{	
-	background:#ccc;
+	background:#f1f1f1;
 	padding:3px;}
 .length{
 	/*
@@ -21,15 +18,16 @@
 	/*border:1px solid #000;
 	width:100px;height:100px;*/
 }
-.variant_0{background:#000;}
-.variant_1{background:#f00;}
-.variant_2{background:#0f0;}
-.variant_3{background:#00f;}
-.variant_4{background:#ff0;}
-.variant_5{background:#f0f;}
-.variant_6{background:#0ff;}
-.variant_7{background:#f8f;}
+.variant_0{background:#aff;}
+.variant_1{background:#a8f;}
+.variant_2{background:#faa;}
+.variant_3{background:#ffa;}
+.variant_4{background:#faf;}
+.variant_5{background:#afa;}
+.variant_6{background:#8ff;}
+.variant_7{background:#8f8;}
 .variant_8{background:#88f;}
+.variant_empty{background:#333;}
 
 /*
 lengthContainter.width = (800/gameWidth);
