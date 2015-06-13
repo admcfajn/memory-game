@@ -22,7 +22,7 @@
 	clickedCells = [];
 dropElements = [cellsWideUX,cellsHighUX,numVariantsUX,numEachVariantUX];
 $.each(dropElements, function () {
-	for(i=2;i<=10;i++){
+	for(i=3;i<=10;i++){
 		$(this).append('<option value="' + i + '">' + i + '</option>');
 	}
 });
