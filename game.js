@@ -7,7 +7,12 @@
 	cellsHigh = $(".cells_high").val(),
 	numVariants = $(".number_variants").val(),
 	numEachVariant = $(".number_each_variant").val(),
-	totalCells = (cellsWide * cellsHigh);
+	totalCells = (cellsWide * cellsHigh),
+
+	cellsWideUX = $(".cells_wide"),
+	cellsHighUX = $(".cells_high"),
+	numVariantsUX = $(".number_variants"),
+	numEachVariantUX = $(".number_each_variant");
 
 	variantClasses = [];
 	cellList = [];
@@ -15,8 +20,15 @@
 	matchScore = 0;
 	allMatched = [];
 	clickedCells = [];
+dropElements = [cellsWideUX,cellsHighUX,numVariantsUX,numEachVariantUX];
+$.each(dropElements, function () {
+	for(i=2;i<=10;i++){
+		$(this).append('<option value="' + i + '">' + i + '</option>');
+	}
+});
 
-	theVariants = build_variants(numVariants);
+//app.dom.$campus.append('<option value="' + campus + '">' + campus + '</option>');
+	theVariants = build_variants(numVariants, numEachVariant);
 /**/
 	$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
 		cellsWide = $(".cells_wide").val();
@@ -24,6 +36,7 @@
 		numVariants = $(".number_variants").val();
 		numEachVariant = $(".number_each_variant").val();
 		clear_children(containerWrapper);
+		theVariants = build_variants(numVariants, numEachVariant);
 		plot(containerWrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
 	});
 	$(containerWrapper).on('click', '.cell', function(){
@@ -38,12 +51,12 @@
 	  return Math.floor(Math.random() * (max - min)) + min;
 	}
 
-	function build_variants(num_variants){
+	function build_variants(num_variants, num_each_variant){
 		variantList = [];
 		for(x=0;x<=num_variants;x++){
 			variantList.push([]);
 			variantList[x].push('variant_'+x);
-			variantList[x].push(num_variants);
+			variantList[x].push(num_each_variant);
 		}
 		return variantList;
 	}
