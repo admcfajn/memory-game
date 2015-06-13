@@ -1,11 +1,12 @@
 
 	var 
 	containerWrapper = document.getElementById("container_wrapper");
-	gameWidth = "500",
-	gameHeight = "500",
+	gameWidth = "400",
+	gameHeight = "400",
 	cellsWide = $(".cells_wide").val(),
 	cellsHigh = $(".cells_high").val(),
-	numVariants = $(".number_variants").val(),
+	numVariants = parseInt($(".number_variants").val()),
+	numEachVariant = parseInt($(".number_each_variant").val()), //toInt
 	totalCells = (cellsWide * cellsHigh);
 
 	variantClasses = [];
@@ -15,24 +16,33 @@
 
 	cellsPicked = [];
 
-function build_variants(num_variants){
 	variantList = [];
+
+function build_variants(num_variants, num_each_variant){
+	
 	for(x=0;x<=num_variants;x++){
 		variantList.push([]);
 		variantList[x].push('variant_'+x);
 		variantList[x].push(num_variants);
+		variantList[x].push(num_each_variant);//console.log(variantList);
 	}
 	return variantList;
 }
 
-function assign_variant(elem, variant_list, num_variants){
+function assign_variant(elem, variant_list, num_variants, num_each_variant){
 	currentVariant = getRandomInt(0,num_variants);
-	currentVariantCount = variant_list[currentVariant][1];
-	if(currentVariantCount > 0){
+	//currentVariantCount = variant_list[currentVariant][1];
+	currentVariantCount = variant_list[currentVariant][1] ? currentVariantCount = variant_list[currentVariant][1] : currentVariantCount = 'baz';
+	if(currentVariantCount){
 		elem.className = elem.className+" variant_"+currentVariant;
-		variant_list[currentVariant][1] = currentVariantCount--;
+		variantList[currentVariant][1] = (variant_list[currentVariant][1]-1);
+		// console.log('start');
+		// console.log(variant_list);
+		// console.log(variantList);
+		// console.log('end');
 	} else {
-		assign_variant(elem);
+		console.log('damn -- '+currentVariant+' -- '+variant_list[currentVariant][1]);
+		assign_variant(elem, variant_list);
 	}
 }
 
@@ -41,27 +51,26 @@ function getRandomInt(min, max) {
 }
 
 
-$(".cells_wide, .cells_high, .number_variants").change(function(){
+$(".cells_wide, .cells_high, .number_variants, .number_each_variants").change(function(){
 	cellsWide = $(".cells_wide").val();
 	cellsHigh = $(".cells_high").val();
-	numVariants = $(".number_variants").val();
+	numVariants = parseInt($(".number_variants").val());
+	numEachVariant = parseInt($(".number_each_variant").val());
 	clear_children(containerWrapper);
-	plot(containerWrapper,cellsWide,cellsHigh,numVariants);
+	plot(containerWrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
 });
 
 function clickCell(elem){
 	matchScore = allMatched.length;
-	var varClassRe = /variant_\d+/;
-	varClass = varClassRe.exec(elem.className);
-	var varCellRe = /cell_\d+_\d+/;
-	varCell = varCellRe.exec(elem.className);
+	var varClassRe = /variant_\d+/; varClass = varClassRe.exec(elem.className);
+	var varCellRe = /cell_\d+_\d+/; varCell = varCellRe.exec(elem.className);
 	
 	//if(cellsPicked.indexOf(varCellRe)){return;}
 	//alert(varClass+' & '+varCell);
 
-	window.allMatched.push(varClass);
-	window.cellsPicked.push(varCell);
-	//console.log(allMatched+' & '+cellsPicked);
+	allMatched.push(varClass);
+	cellsPicked.push(varCell);
+	console.log(allMatched+' & '+cellsPicked);
 
 	for(i=0;i<allMatched.length;i++){
 		// console.log( "thisthat " + allMatched[0][0]+' - '+allMatched[i][0] );
@@ -98,9 +107,9 @@ function clear_children(target){
 	}
 }
 
-function plot(container, cellswide, cellshigh, num_variants){
+function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 	
-	variants = build_variants(num_variants);
+	variants = build_variants(num_variants, num_each_variant);
 
 	for(x=0;x<cellshigh;x++){
 		//var cols.push(array())
@@ -134,7 +143,7 @@ function plot(container, cellswide, cellshigh, num_variants){
 					cellList[cellCoords].push("cell_"+x+"_"+y);
 					cellList[cellCoords].push(num_variants);
 
-					assign_variant(cellContainer, variants, num_variants);
+					assign_variant(cellContainer, variants, num_variants, num_each_variant);
 					//alert(cellList);
 					//assign_variant(cellContainer);
 			}
@@ -143,7 +152,7 @@ function plot(container, cellswide, cellshigh, num_variants){
  
 
  function init(){
- 	plot(containerWrapper, cellsWide, cellsHigh, numVariants);
+ 	plot(containerWrapper, cellsWide, cellsHigh, numVariants, numEachVariant);
  }
 
 
