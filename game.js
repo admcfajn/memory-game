@@ -11,18 +11,22 @@
 	variantClasses = [];
 	cellList = [];
 
-function build_variants(total_variants){
+	allMatched = [];
+
+	cellsPicked = [];
+
+function build_variants(num_variants){
 	variantList = [];
-	for(x=0;x<=total_variants;x++){
+	for(x=0;x<=num_variants;x++){
 		variantList.push([]);
 		variantList[x].push('variant_'+x);
-		variantList[x].push(total_variants);
+		variantList[x].push(num_variants);
 	}
 	return variantList;
 }
 
-function assign_variant(elem, variant_list, total_variants){
-	currentVariant = getRandomInt(0,total_variants);
+function assign_variant(elem, variant_list, num_variants){
+	currentVariant = getRandomInt(0,num_variants);
 	currentVariantCount = variant_list[currentVariant][1];
 	if(currentVariantCount > 0){
 		elem.className = elem.className+" variant_"+currentVariant;
@@ -45,35 +49,47 @@ $(".cells_wide, .cells_high, .number_variants").change(function(){
 	plot(containerWrapper,cellsWide,cellsHigh,numVariants);
 });
 
-rightCells = [];
-clickedCells = [];
-
-function clickCell(elem, right_cells){
-
+function clickCell(elem){
+	matchScore = allMatched.length;
 	var varClassRe = /variant_\d+/;
 	varClass = varClassRe.exec(elem.className);
 	var varCellRe = /cell_\d+_\d+/;
 	varCell = varCellRe.exec(elem.className);
 	
-	//if(clickedCells.indexOf(varCellRe)){return;}
+	//if(cellsPicked.indexOf(varCellRe)){return;}
 	//alert(varClass+' & '+varCell);
 
-	rightCells.push(varClass);
-	clickedCells.push(varCell);
-	alert(rightCells+' & '+clickedCells);
+	window.allMatched.push(varClass);
+	window.cellsPicked.push(varCell);
+	//console.log(allMatched+' & '+cellsPicked);
 
-	// for(i=0;i<=3;i++){
-	// 	if(rightCells[0]==rightCells.length){
-	// 		console.log(i+ " cells in a row!");
-	// 	} else {
-	// 		rightCells = [];
-	// 		console.log("you loose");
-	// 	}
+	for(i=0;i<allMatched.length;i++){
+		// console.log( "thisthat " + allMatched[0][0]+' - '+allMatched[i][0] );
+		// console.log("all matched "+allMatched);
+
+		if(allMatched[0][0]==allMatched[i][0]){
+			matchScore++;
+			console.log("win "+matchScore+" in a row");
+		} else {
+			matchScore = 0;
+			allMatched = [];
+			cellsPicked = [];
+			console.log("loose");
+		}
+	}
+
+	//if(matchScore==)
+
+	// if(matchScore>0){
+	// 	console.log("great you matched "+matchScore);
+	// }else{
+	// 	console.log("Why you gotta make me do this?.. Start over");
 	// }
+
 }
 
 $(containerWrapper).on('click', '.cell', function(){
-	clickCell(this, rightCells);
+	clickCell(this);
 });
 
 function clear_children(target){
@@ -82,9 +98,9 @@ function clear_children(target){
 	}
 }
 
-function plot(container, cellswide, cellshigh, total_variants){
+function plot(container, cellswide, cellshigh, num_variants){
 	
-	variants = build_variants(total_variants);
+	variants = build_variants(num_variants);
 
 	for(x=0;x<cellshigh;x++){
 		//var cols.push(array())
@@ -116,9 +132,9 @@ function plot(container, cellswide, cellshigh, total_variants){
 					cellCoords = (x * cellswide) + y;
 
 					cellList[cellCoords].push("cell_"+x+"_"+y);
-					cellList[cellCoords].push(total_variants);
+					cellList[cellCoords].push(num_variants);
 
-					assign_variant(cellContainer, variants, total_variants);
+					assign_variant(cellContainer, variants, num_variants);
 					//alert(cellList);
 					//assign_variant(cellContainer);
 			}
