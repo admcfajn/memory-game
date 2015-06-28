@@ -7,16 +7,33 @@
 	cellsHigh = $(".cells_high").val(),
 	numVariants = $(".number_variants").val(),
 	numEachVariant = $(".number_each_variant").val(),
-
 	totalCells = (cellsWide * cellsHigh),
 	totalVariants = (numVariants*numEachVariant),
-	variantClasses = [],
-	cellList = [],
 
-	matchScore = 0,
-	allMatched = [],
-	clickedCells = [],
+	cellsWideUX = $(".cells_wide"),
+	cellsHighUX = $(".cells_high"),
+	numVariantsUX = $(".number_variants"),
+	numEachVariantUX = $(".number_each_variant");
+
+	variantClasses = [];
+	cellList = [];
+
+	matchScore = 0;
+	allMatched = [];
+	clickedCells = [];
+
+	dropElements = [cellsWideUX,cellsHighUX,numVariantsUX,numEachVariantUX];
+	$.each(dropElements, function () {
+		for(i=9;i>=2;i--){
+			$(this).append('<option value="' + i + '">' + i + '</option>');
+		}
+	});
+
+
+
 	theVariants = build_variants(numVariants, numEachVariant);
+
+
 /**/
 	$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
 		cellsWide = $(".cells_wide").val();
@@ -50,42 +67,33 @@
 	}
 
 function assign_variant(elem, variant_list, num_variants){
-	currentVariant = getRandomInt(0,num_variants);
-	
-	// dies early (remove 0-variants from subsequent calls)
-	if(theVariants[currentVariant][1]>0){
-		currentVariantCount = theVariants[currentVariant][1]
-	}else{
-		currentVariantCount = "empty";
-	}
-/*
+
 	if(totalVariants>0){
 		currentVariant = getRandomInt(0,num_variants);
-		// dies early (remove 0-variants from subsequent calls)
-		if(theVariants[currentVariant][1]>0){
-			currentVariantCount = theVariants[currentVariant][1];
-			elem.className = elem.className+" variant_"+currentVariant;
-			theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
-			totalVariants--;
+
+		set_variant(elem, theVariants, numVariants, currentVariant);
+
+		elem.className = elem.className+" variant_"+currentVariant;
+		theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
+		totalVariants--;
+		console.log(typeof(totalVariants),totalVariants);
+	}else{
+		//currentVariant=="empty";
+		elem.className = elem.className+" variant_empty";
+
+	}
+	//console.log(currentVariantCount);
+}
+
+function set_variant(elem, variant_list, num_variants, current_variant){
+
+		if(theVariants[current_variant][1]>0){
+			currentVariantCount = theVariants[current_variant][1];
 		}else{
-			assign_variant(elem, variants, num_variants);
-			//currentVariantCount = "empty";
+			currentVariant = getRandomInt(0,num_variants);
+			set_variant(elem, theVariants, numVariants, currentVariant);
+			// dies early (remove 0-variants from subsequent calls)
 		}
-	}else{
-		elem.className = elem.className+" variant_empty";
-	}
-*/	if(currentVariantCount=="empty"){
-		elem.className = elem.className+" variant_empty";
-	}else{
-		if(currentVariantCount){
-			elem.className = elem.className+" variant_"+currentVariant;
-			theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
-			//variant_list[currentVariant][1] = currentVariantCount--;
-		} else {
-			assign_variant(cellContainer, variants, num_variants);
-		}
-	}
-	console.log(currentVariantCount);
 }
 
 function clickCell(elem){
