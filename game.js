@@ -23,6 +23,9 @@
 		cellsHigh = $(".cells_high").val();
 		numVariants = $(".number_variants").val();
 		numEachVariant = $(".number_each_variant").val();
+			totalCells = (cellsWide * cellsHigh)
+			totalVariants = (numVariants*numEachVariant);
+			console.log('currentVariantCount',totalVariants);
 		clear_children(containerWrapper);
 		theVariants = build_variants(numVariants, numEachVariant);
 		plot(containerWrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
@@ -53,13 +56,8 @@ function assign_variant(elem, variant_list, num_variants){
 	currentVariant = getRandomInt(0,num_variants);
 	
 	// dies early (remove 0-variants from subsequent calls)
-	if(theVariants[currentVariant][1]>0){
-		currentVariantCount = theVariants[currentVariant][1]
-	}else{
-		currentVariantCount = "empty";
-	}
-/*
-	if(totalVariants>0){
+
+	if(totalVariants){
 		currentVariant = getRandomInt(0,num_variants);
 		// dies early (remove 0-variants from subsequent calls)
 		if(theVariants[currentVariant][1]>0){
@@ -74,18 +72,24 @@ function assign_variant(elem, variant_list, num_variants){
 	}else{
 		elem.className = elem.className+" variant_empty";
 	}
-*/	if(currentVariantCount=="empty"){
-		elem.className = elem.className+" variant_empty";
-	}else{
-		if(currentVariantCount){
-			elem.className = elem.className+" variant_"+currentVariant;
-			theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
-			//variant_list[currentVariant][1] = currentVariantCount--;
-		} else {
-			assign_variant(cellContainer, variants, num_variants);
-		}
-	}
-	console.log(currentVariantCount);
+
+	// if(theVariants[currentVariant][1]>0){
+	// 	currentVariantCount = theVariants[currentVariant][1]
+	// }else{
+	// 	currentVariantCount = "empty";
+	// }
+	// if(currentVariantCount=="empty"){
+	// 	elem.className = elem.className+" variant_empty";
+	// }else{
+	// 	if(currentVariantCount){
+	// 		elem.className = elem.className+" variant_"+currentVariant;
+	// 		theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
+	// 		//variant_list[currentVariant][1] = currentVariantCount--;
+	// 	} else {
+	// 		assign_variant(cellContainer, variants, num_variants);
+	// 	}
+	// }
+	console.log(currentVariantCount,totalVariants);
 }
 
 function clickCell(elem){
