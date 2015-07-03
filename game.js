@@ -54,12 +54,10 @@
 
 function assign_variant(elem, variant_list, num_variants){
 	currentVariant = getRandomInt(0,num_variants);
-	
-	// dies early (remove 0-variants from subsequent calls)
 
 	if(totalVariants){
 		currentVariant = getRandomInt(0,num_variants);
-		// dies early (remove 0-variants from subsequent calls)
+		// +1 to randomInt limit for buffer cells (bonus, traps, etc...)
 		if(theVariants[currentVariant][1]>0){
 			currentVariantCount = theVariants[currentVariant][1];
 			elem.className = elem.className+" variant_"+currentVariant;
@@ -67,55 +65,58 @@ function assign_variant(elem, variant_list, num_variants){
 			totalVariants--;
 		}else{
 			assign_variant(elem, variants, num_variants);
-			//currentVariantCount = "empty";
 		}
 	}else{
 		elem.className = elem.className+" variant_empty";
 	}
-
-	// if(theVariants[currentVariant][1]>0){
-	// 	currentVariantCount = theVariants[currentVariant][1]
-	// }else{
-	// 	currentVariantCount = "empty";
-	// }
-	// if(currentVariantCount=="empty"){
-	// 	elem.className = elem.className+" variant_empty";
-	// }else{
-	// 	if(currentVariantCount){
-	// 		elem.className = elem.className+" variant_"+currentVariant;
-	// 		theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
-	// 		//variant_list[currentVariant][1] = currentVariantCount--;
-	// 	} else {
-	// 		assign_variant(cellContainer, variants, num_variants);
-	// 	}
-	// }
-	console.log(currentVariantCount,totalVariants);
+	//console.log(currentVariantCount,totalVariants);
 }
-
 function clickCell(elem){
-// todo: fix click on "empty" - shift assigment index? loop "empty" to assign bonus / traps
-// add "empty" exception in rand# +1 to max include "empty" before indexes reach 0
+	// todo: fix click on "empty" - shift assigment index? loop "empty" to assign bonus / traps
+	// add "empty" exception in rand# +1 to max include "empty" before indexes reach 0
+	var itMatched = false;
+	var pushCell = true;
 	var varClassRe = /variant_\d+/;varClass = varClassRe.exec(elem.className);
 	var varCellRe = /cell_\d+_\d+/;varCell = varCellRe.exec(elem.className);
 	
 	//if(clickedCells.indexOf(varCellRe)){return;}
-	//alert(varClass+' & '+varCell);
 
-	allMatched.push(varClass);
-	clickedCells.push(varCell);
-
-	console.log('right cells '+allMatched); console.log(' & clicked cells '+clickedCells);
-	for(i=0;i<allMatched.length;i++){
-		// console.log( "... " + allMatched[0][0]+' - '+allMatched[i][0] );
-		if(allMatched[0][0]==allMatched[i][0]){
-			matchScore++;
-			console.log("win "+matchScore+" in a row");
-		} else {
-			matchScore = 0;
-			allMatched = [];
-			cellsPicked = [];
-			console.log("loose");
+	for(i=0;i<clickedCells.length;i++){
+		//console.log(varCell+"##"+clickedCells[i][0]);
+		if(varCell==clickedCells[i][0]){
+			pushCell = false;
 		}
+	}
+
+	if(pushCell){
+		allMatched.push(varClass);
+		clickedCells.push(varCell);
+	}
+
+	for(i=0;i<allMatched.length;i++){
+		if(allMatched[0][0]==allMatched[i][0]){
+			itMatched = true;
+		}else{
+			itMatched = false;
+		}
+	}
+
+	console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells); 
+
+	if(itMatched == true && pushCell == false){
+		console.log("You clicked that one already! Previous Clicks: "+clickedCells+" Current:"+varCell);
+		console.log("Try Again :D");
+	}else if(itMatched == true){
+		matchScore++;
+		console.log("win "+matchScore+" in a row");
+		if(matchScore>=numEachVariant){
+			console.log("#nailedit");
+		}
+	}else{
+		matchScore = 0;
+		allMatched = [];
+		clickedCells = [];
+		console.log("loose");
 	}
 }
 
