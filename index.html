@@ -3,38 +3,33 @@
 <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body onload="init()">
-	<div id="main">
-		<div id="container_wrapper" class="container_wrapper">
-
-		</div>
-	</div>
 	<div id="config">
 	<form id="game_vals">
 		<ul>
 		<!-- plot wide by tall -->
 		<li>
-			<label>cells_wide
+			<label>Cells Wide: 
 				<select class="cells_wide" name="cellswide" />
 					<option value="10">10</option>
 				<select>
 			</label>
 		</li>
 		<li>
-			<label>cells_high
+			<label>Cells High:
 				<select class="cells_high" name="cellsheigh" />
 					<option value="10">10</option>
 				<select>
 			</label>
 		</li>
 		<li>
-			<label>number_variants
+			<label>Variants: 
 				<select class="number_variants" name="numbervariants" />
 					<option value="10">10</option>
 				<select>
 			</label>
 		</li>
 		<li>
-			<label>number_each_variant
+			<label>Number Each Variant:
 				<select class="number_each_variant" name="numbereachvariant" />
 					<option value="10">10</option>
 				<select>
@@ -42,30 +37,16 @@
 		</li>
 		</ul>
 		<!--  draw grid view  -->
-
-
-		<input type="submit" name="subit_game_vals" class="game_vals_submit">
-		<!--  update grid preview  -->
-		<!--
-		
-
-			<input class="gameWidth" /><input class="gameHeight" />
-			<input class="numberVariants" />
-			+
-			<input class="numerEachVariant" />
-			= <input class="numberMatchCards" />
-
-			<input class="numerBlankCards" />(auto-populate/override?)
-				<input class="numberBonusCells" />
-				<input class="numberTrapsCells" />
-				<input class="numberBlankCells" />(auto/(blankCards-{Bonus+Trap}))
-
-		-->
-
+		<!-- <input type="submit" name="subit_game_vals" class="game_vals_submit"> -->
 	</form>
+	</div>	
+	<div id="main">
+		<div id="container_wrapper" class="container_wrapper">
+
+		</div>
 	</div>
-	<div id="controls">
-		[pass][chat][leave]
+	<div id="output">
+	
 	</div> 
 
 

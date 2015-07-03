@@ -101,22 +101,26 @@ function clickCell(elem){
 		}
 	}
 
-	console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells); 
+	//console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells); 
+	var output = document.getElementById("output");
+	output.innerHTML = ' -  clicked variants: '+allMatched, ' & clicked cells: '+clickedCells; 
 
 	if(itMatched == true && pushCell == false){
-		console.log("You clicked that one already! Previous Clicks: "+clickedCells+" Current:"+varCell);
-		console.log("Try Again :D");
+		output.innerHTML = " -  You clicked that one already!";
+		output.innerHTML += "<br> -  Try Again :D";
+		// console.log("You clicked that one already! Previous Clicks: "+clickedCells+" Current:"+varCell);
+		// console.log("Try Again :D");
 	}else if(itMatched == true){
 		matchScore++;
-		console.log("win "+matchScore+" in a row");
+		output.innerHTML = "win "+matchScore+" in a row";
 		if(matchScore>=numEachVariant){
-			console.log("#nailedit");
+			output.innerHTML = "#nailedit";
 		}
 	}else{
 		matchScore = 0;
 		allMatched = [];
 		clickedCells = [];
-		console.log("loose");
+		output.innerHTML = "loose";
 	}
 }
 

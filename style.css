@@ -1,15 +1,32 @@
 
 
 #main, #main .container_wrapper{
-	border:1px solid #ccc;
+	/*border:1px solid #ccc;*/
+	text-align:center;
 }
 #main .container_wrapper{	
 	background:#f1f1f1;
-	padding:3px;}
+	padding:3px;
+	margin:auto;
+}
 .length{
 	/*
 	width:800px;
 	height:100px;*/
+}
+#output{
+	width:496px;
+	height:76px;
+	overflow:scroll;
+	margin:auto;
+	border: 2px groove #ccf;
+}
+#game_vals ul{
+	text-align: center;
+	padding-left:0;
+}
+#game_vals ul li{
+	display:inline-block;
 }
 .cell{
 	float:left;
