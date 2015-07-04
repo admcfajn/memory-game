@@ -6,7 +6,8 @@
 }
 #main .container_wrapper{	
 	background:#f1f1f1;
-	padding:3px;
+	padding:2px;border-radius:1.15em;
+	box-shadow: inset 0 0 1px #bbb;
 	margin:auto;
 }
 .length{
@@ -15,11 +16,12 @@
 	height:100px;*/
 }
 #output{
-	width:496px;
-	height:76px;
-	overflow:scroll;
+	width:500px;
+	height:80px;
+	padding-top: 10px;
+	/*overflow:scroll;*/
 	margin:auto;
-	border: 2px groove #ccf;
+	text-align: center;
 }
 #game_vals ul{
 	text-align: center;
@@ -30,6 +32,8 @@
 }
 .cell{
 	float:left;
+	border-radius:1em;
+	box-shadow: inset 0 0 1px #555;
 	/*opacity:.5;*/
 	/*position:relative;top:20px;left:20px;*/
 	/*border:1px solid #000;
