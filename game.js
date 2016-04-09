@@ -16,6 +16,7 @@
 	matchScore = 0,
 	allMatched = [],
 	clickedCells = [],
+	completeMatches = [],
 	theVariants = build_variants(numVariants, numEachVariant);
 /**/
 	$(".cells_wide, .cells_high, .number_variants, .number_each_variant").change(function(){
@@ -71,11 +72,14 @@ function assign_variant(elem, variant_list, num_variants){
 	}
 	//console.log(currentVariantCount,totalVariants);
 }
+
 function clickCell(elem){
 	// todo: fix click on "empty" - shift assigment index? loop "empty" to assign bonus / traps
 	// add "empty" exception in rand# +1 to max include "empty" before indexes reach 0
 	var itMatched = false;
 	var pushCell = true;
+	var chainMatches = false;
+
 	var varClassRe = /variant_\d+/;varClass = varClassRe.exec(elem.className);
 	var varCellRe = /cell_\d+_\d+/;varCell = varCellRe.exec(elem.className);
 	
@@ -101,21 +105,30 @@ function clickCell(elem){
 		}
 	}
 
+	if(allMatched.length == numEachVariant){
+		completeMatches.push(allMatched);
+		allMatched = [];
+	}
+
 	//console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells); 
 	var output = document.getElementById("output");
 	output.innerHTML = ' -  clicked variants: '+allMatched, ' & clicked cells: '+clickedCells; 
 
 	if(itMatched == true && pushCell == false){
-		output.innerHTML = " -  You clicked that one already!";
-		output.innerHTML += "<br> -  Try Again :D";
-		// console.log("You clicked that one already! Previous Clicks: "+clickedCells+" Current:"+varCell);
-		// console.log("Try Again :D");
+		output.innerHTML = "You clicked that one already! Try Again";
 	}else if(itMatched == true){
+
 		matchScore++;
-		output.innerHTML = "win "+matchScore+" in a row";
-		if(matchScore>=numEachVariant){
-			output.innerHTML = "#nailedit";
+		output.innerHTML = "Win! "+matchScore+" in a row";
+		output.innerHTML += "<br>clickedCells: "+clickedCells;
+		output.innerHTML += "<br>allMatched: "+allMatched;
+		output.innerHTML += "<br>completeMatches: "+completeMatches;
+		console.log(completeMatches);
+
+		if(completeMatches.length == numVariants){
+			output.innerHTML += "<br>You win! <a href='#' class='play-again'>Play Again?</a>";
 		}
+
 	}else{
 		matchScore = 0;
 		allMatched = [];
@@ -125,13 +138,11 @@ function clickCell(elem){
 }
 
 
-
 function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 	
 	variants = theVariants;
 
 	for(x=0;x<cellshigh;x++){
-		//var cols.push(array())
 		
 		var lengthContainer = document.createElement("div");
 		
@@ -163,7 +174,7 @@ function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 					cellList[cellCoords].push(num_variants);
 
 					assign_variant(cellContainer, variants, num_variants);
-					//alert(cellList);assign_variant(cellContainer);
+					//console.log(cellList);assign_variant(cellContainer);
 			}
 	}
 }

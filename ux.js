@@ -9,4 +9,10 @@ $(document).ready(function(){
 			$(this).append('<option value="' + i + '">' + i + '</option>');
 		}
 	});
+
+	$('.play-again').click(function(){
+		alert('here');
+		location.reload();
+		return false;
+	});
 });
