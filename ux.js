@@ -1,18 +1,18 @@
-$(document).ready(function(){
-	cellsWideUX = $(".cells_wide"),
-	cellsHighUX = $(".cells_high"),
-	numVariantsUX = $(".number_variants"),
-	numEachVariantUX = $(".number_each_variant");
-	dropElements = [cellsWideUX,cellsHighUX,numVariantsUX,numEachVariantUX];
-	$.each(dropElements, function () {
-		for(i=9;i>=2;i--){
-			$(this).append('<option value="' + i + '">' + i + '</option>');
-		}
-	});
+var
+	ux_cells_wide = document.getElementById('cells_wide'),
+	ux_cells_high = document.getElementById('cells_high'),
+	ux_number_variants = document.getElementById('number_variants'),
+	ux_number_each_variant = document.getElementById('number_each_variant');
+	/* array of all inputs to be populated */
+	dropElements = [ux_cells_wide,ux_cells_high,ux_number_variants,ux_number_each_variant];
+	gameParams = [];
+/**/
+for(var i = 2; i < 21; i++ ){
+	gameParams.push(i.toString());
+}
 
-	$('.play-again').click(function(){
-		alert('here');
-		location.reload();
-		return false;
-	});
-});
+for(var i = 0; i < dropElements.length; i++ ){
+	for(var k = 0; k < gameParams.length; k++ ){
+		dropElements[i].add( new Option( gameParams[k], [gameParams[k]] ) );
+	}
+}

@@ -1,6 +1,7 @@
 <html>
-<head><title>memory game</title>
-<link rel="stylesheet" type="text/css" href="style.css">
+<head>
+	<title>memory game</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body onload="init()">
 	<div id="config">
@@ -8,49 +9,43 @@
 		<ul>
 		<!-- plot wide by tall -->
 		<li>
-			<label>Cells Wide: 
-				<select class="cells_wide" name="cellswide" />
-					<option value="2">2</option>
+			<label>Cells Wide:
+				<select id="cells_wide" name="cells_wide" class="cells_wide" />
 				<select>
 			</label>
 		</li>
 		<li>
 			<label>Cells High:
-				<select class="cells_high" name="cellsheigh" />
-					<option value="2">2</option>
+				<select id="cells_high" name="cells_wide" class="cells_high" />
 				<select>
 			</label>
 		</li>
 		<li>
-			<label>Variants: 
-				<select class="number_variants" name="numbervariants" />
-					<option value="2">2</option>
+			<label>Variants:
+				<select id="number_variants" name="number_variants" class="number_variants" />
 				<select>
 			</label>
 		</li>
 		<li>
 			<label>Number Each Variant:
-				<select class="number_each_variant" name="numbereachvariant" />
-					<option value="2">2</option>
+				<select id="number_each_variant" name="number_each_variant" class="number_each_variant" />
 				<select>
 			</label>
 		</li>
 		</ul>
 		<!--  draw grid view  -->
-		<!-- <input type="submit" name="subit_game_vals" class="game_vals_submit"> -->
 	</form>
-	</div>	
+	</div>
 	<div id="main">
 		<div id="container_wrapper" class="container_wrapper">
 
 		</div>
 	</div>
 	<div id="output">
-	
-	</div> 
+
+	</div>
 
 
-<script type="text/javascript" src="jquery-1.11.3.min.js"></script>
 <script type="text/javascript" src="ux.js"></script>
 <script type="text/javascript" src="game.js"></script>
 </body>
