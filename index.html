@@ -1,50 +1,58 @@
-<html>
+<!DOCTYPE html>
+<html lang="en-US">
 <head>
 	<title>memory game</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body onload="init()">
-	<div id="config">
-	<form id="game_vals">
-		<ul>
-		<!-- plot wide by tall -->
-		<li>
-			<label>Cells Wide:
-				<select id="cells_wide" name="cells_wide" class="cells_wide" />
-				<select>
-			</label>
-		</li>
-		<li>
-			<label>Cells High:
-				<select id="cells_high" name="cells_wide" class="cells_high" />
-				<select>
-			</label>
-		</li>
-		<li>
-			<label>Variants:
-				<select id="number_variants" name="number_variants" class="number_variants" />
-				<select>
-			</label>
-		</li>
-		<li>
-			<label>Number Each Variant:
-				<select id="number_each_variant" name="number_each_variant" class="number_each_variant" />
-				<select>
-			</label>
-		</li>
-		</ul>
-		<!--  draw grid view  -->
-	</form>
+	<div id="config_container">
+		<div id="config">
+
+			<form id=game_vals>
+					<ul>
+							<li>
+									<label>Cells Wide:
+											<select id="cells_wide" name="cells_wide" />
+											<select>
+									</label>
+							</li>
+							<li>
+									<label>Cells High:
+											<select id="cells_high" name="cells_high" />
+											<select>
+									</label>
+							</li>
+							<li>Cells Total: <span id="cell_output"></span></li>
+					</ul>
+					<ul>
+							<li>
+									<label>Variants:
+											<select id="number_variants" name="number_variants" />
+											<select>
+									</label>
+							</li>
+							<li>
+									<label># Each Variant:
+											<select id="number_each_variant" name="number_each_variant" />
+											<select>
+									</label>
+							</li>
+							<li>Variants Total: <span id="variant_output"></span></li>
+					</ul>
+			</form>
+
+		</div>
+		<div id="validation_notification"></div>
+		<div id=output_container>
+				<div id=output></div>
+		</div>		
 	</div>
+	<!-- <span id="hide_config">Hide / Show Config</span> -->
 	<div id="main">
 		<div id="container_wrapper" class="container_wrapper">
 
 		</div>
 	</div>
-	<div id="output">
-
-	</div>
-
 
 <script type="text/javascript" src="ux.js"></script>
 <script type="text/javascript" src="game.js"></script>
