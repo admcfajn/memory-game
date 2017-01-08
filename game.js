@@ -1,36 +1,36 @@
 
 var
-	gameWidth = document.getElementById('main').offsetWidth,
-	gameHeight = gameWidth * 0.65,
+gameWidth = document.getElementById('main').offsetWidth,
+gameHeight = gameWidth * 0.65,
 
-	container_wrapper = document.getElementById("container_wrapper"),
-	cells_wide = document.getElementById('cells_wide'),
-	cells_high = document.getElementById('cells_high'),
-	number_variants = document.getElementById('number_variants'),
-	number_each_variant = document.getElementById('number_each_variant'),
-	cell_output = document.getElementById('cell_output'),
-	variant_output = document.getElementById('variant_output'),
-	validation_notification = document.getElementById('validation_notification'),
-	output = document.getElementById("output"),
+container_wrapper = document.getElementById("container_wrapper"),
+cells_wide = document.getElementById('cells_wide'),
+cells_high = document.getElementById('cells_high'),
+number_variants = document.getElementById('number_variants'),
+number_each_variant = document.getElementById('number_each_variant'),
+cell_output = document.getElementById('cell_output'),
+variant_output = document.getElementById('variant_output'),
+validation_notification = document.getElementById('validation_notification'),
+output = document.getElementById("output"),
 
-	cellsWide = cells_wide.value,
-	cellsHigh = cells_high.value,
-	numVariants = number_variants.value,
-	numEachVariant = number_each_variant.value,
-	totalCells = (cellsWide * cellsHigh),
-	totalVariants = (numVariants*numEachVariant),
-	theVariants = build_variants(numVariants, numEachVariant),
+cellsWide = cells_wide.value,
+cellsHigh = cells_high.value,
+numVariants = number_variants.value,
+numEachVariant = number_each_variant.value,
+totalCells = (cellsWide * cellsHigh),
+totalVariants = (numVariants*numEachVariant),
+theVariants = build_variants(numVariants, numEachVariant),
 
-	variantClasses = [],
-	cellList = [],
-	matchScore = 0,
-	allMatched = [],
-	clickedCells = [],
-	completeMatches = [];
+variantClasses = [],
+cellList = [],
+matchScore = 0,
+allMatched = [],
+clickedCells = [],
+completeMatches = [];
 
 /**/
-	cell_output.innerHTML = totalCells;
-	variant_output.innerHTML = totalVariants;
+cell_output.innerHTML = totalCells;
+variant_output.innerHTML = totalVariants;
 
 
 gameOn = false;
