@@ -4,19 +4,20 @@ gameWidth = document.getElementById('main').offsetWidth,
 gameHeight = gameWidth * 0.65,
 
 container_wrapper = document.getElementById("container_wrapper"),
-cells_wide = document.getElementById('cells_wide'),
-cells_high = document.getElementById('cells_high'),
-number_variants = document.getElementById('number_variants'),
-number_each_variant = document.getElementById('number_each_variant'),
-cell_output = document.getElementById('cell_output'),
-variant_output = document.getElementById('variant_output'),
+difficulty = document.getElementById('difficulty'),
+// cells_high = document.getElementById('cells_high'),
+// number_variants = document.getElementById('number_variants'),
+// number_each_variant = document.getElementById('number_each_variant'),
+// cell_output = document.getElementById('cell_output'),
+// variant_output = document.getElementById('variant_output'),
 validation_notification = document.getElementById('validation_notification'),
 output = document.getElementById("output"),
+timer = document.getElementById("timer"),
 
-cellsWide = cells_wide.value,
-cellsHigh = cells_high.value,
-numVariants = number_variants.value,
-numEachVariant = number_each_variant.value,
+cellsWide = difficulty.value,
+cellsHigh = difficulty.value,
+numVariants = difficulty.value,
+numEachVariant = difficulty.value,
 totalCells = (cellsWide * cellsHigh),
 totalVariants = (numVariants*numEachVariant),
 theVariants = build_variants(numVariants, numEachVariant),
@@ -29,23 +30,23 @@ clickedCells = [],
 completeMatches = [];
 
 /**/
-cell_output.innerHTML = totalCells;
-variant_output.innerHTML = totalVariants;
+// cell_output.innerHTML = totalCells;
+// variant_output.innerHTML = totalVariants;
 
 
 gameOn = false;
 if (totalVariants == totalCells) {
 	gameOn = true;
-	validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+	// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
 } else {
 	if (totalVariants > totalCells) {
-		validation_notification.innerHTML = numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.';
+		// validation_notification.innerHTML = numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.';
 	} else {
 		if (totalVariants < totalCells) {
 			gameOn = true;
-			validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+			// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
 		} else {
-			validation_notification.innerHTML = '&nbsp;';
+			// validation_notification.innerHTML = '&nbsp;';
 		}
 	}
 }
@@ -56,38 +57,52 @@ if (totalVariants == totalCells) {
 // });
 
 container_wrapper.addEventListener('change', inputParamsChanged);
-cells_wide.addEventListener('change', inputParamsChanged);
-cells_high.addEventListener('change', inputParamsChanged);
-number_variants.addEventListener('change', inputParamsChanged);
-number_each_variant.addEventListener('change', inputParamsChanged);
+difficulty.addEventListener('change', inputParamsChanged);
+// cells_high.addEventListener('change', inputParamsChanged);
+// number_variants.addEventListener('change', inputParamsChanged);
+// number_each_variant.addEventListener('change', inputParamsChanged);
+
+function updateTimer() {
+		var myTime = timer.innerHTML;
+		var ss = myTime.split(":");
+		var dt = new Date();
+		dt.setHours(ss[0]);
+		dt.setMinutes(ss[1]);
+		dt.setSeconds(ss[2]);
+
+		var dt2 = new Date(dt.valueOf() + 1000);
+		var ts = dt2.toTimeString().split(" ")[0];
+		timer.innerHTML = ts;
+		var timerTimeout = setTimeout(updateTimer, 1000);
+}
 
 function inputParamsChanged(){
-	cellsWide = document.getElementById('cells_wide').value;
-	cellsHigh = document.getElementById('cells_high').value;
-	numVariants = document.getElementById('number_variants').value;
-	numEachVariant = document.getElementById('number_each_variant').value;
+	cellsWide = document.getElementById('difficulty').value;
+	cellsHigh = document.getElementById('difficulty').value;
+	numVariants = document.getElementById('difficulty').value;
+	numEachVariant = document.getElementById('difficulty').value;
 	totalCells = (cellsWide * cellsHigh);
 	totalVariants = (numVariants*numEachVariant);
 
-	cell_output.innerHTML = totalCells;
-	variant_output.innerHTML = totalVariants;
+	// cell_output.innerHTML = totalCells;
+	// variant_output.innerHTML = totalVariants;
 
 	// console.log('currentVariantCount',totalVariants);
 
 	if (totalVariants == totalCells) {
 		gameOn = true;
-		validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+		// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
 	} else {
 		if (totalVariants > totalCells) {
 				gameOn = false;
-				validation_notification.innerHTML = '<strong class="error too-many-variants">' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.</span>';
+				// validation_notification.innerHTML = '<strong class="error too-many-variants">' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.</span>';
 		} else {
 			if (totalVariants < totalCells) {
 				gameOn = true;
-				validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+				// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
 			} else {
 			gameOn = false;
-				validation_notification.innerHTML = '&nbsp';
+				// validation_notification.innerHTML = '&nbsp';
 			}
 		}
 	}
@@ -96,12 +111,15 @@ function inputParamsChanged(){
 	allMatched = [];
 	clickedCells = [];
 	completeMatches = [];
-	output.innerHTML = '&nbsp;';
+	output.innerHTML = '';
 
 	clear_children(container_wrapper);
 	theVariants = build_variants(numVariants, numEachVariant);
 	plot(container_wrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
 	addCellListeners();
+	timer.innerHTML = '00:00:00';
+	// window.clearTimeout(timerTimeout);
+	// window.timerTimeout = setTimeout(updateTimer, 1000);
 }
 
 function clear_children(target){
@@ -206,7 +224,7 @@ function clickCell(){
 		console.log(completeMatches);
 
 		if(completeMatches.length == numVariants){
-			output.innerHTML += "<br>You win!";
+			output.innerHTML += "<br>~!! You win! "+matchScore+" correct clicks in "+timer.innerHTML+" !!~";
 			// output.innerHTML += "<br>You win! <a href='#' class='play-again'>Play Again?</a>";
 		}
 	}else{
@@ -271,4 +289,5 @@ function addCellListeners(){
 function init(){
 	plot(container_wrapper, cellsWide, cellsHigh, numVariants, numEachVariant);
 	addCellListeners();
+	window.timerTimeout = setTimeout(updateTimer, 1000);
 }
