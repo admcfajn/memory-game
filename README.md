@@ -14,6 +14,7 @@ Click all cells of the same type to win. Without clicking the same cell twice.
 After clicking all cells of the same type: Begin a new type.
 
 **How to Win**
+
 Click the cells in the correct order; Don't click the same cell twice.
 
 Click every cell of the same type. Without clicking the same cell twice.
