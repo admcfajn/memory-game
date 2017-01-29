@@ -5,48 +5,15 @@ body {
     font-size: 16px
 }
 
-#hide_config {
-    display: block;
-    line-height: 1.4;
-    color: #fff;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-align: center;
-    background: #128AC6;
-    text-shadow: none
-}
-
-#hide_config:hover {
-    background: #28a4e2
-}
-
-#hide_config.config-hidden {
-    background: #737373
-}
-
-#hide_config.config-hidden:hover {
-    background: #128AC6
-}
-
-.hide {
-    display: none
-}
-
-dt {
-    font-weight: 700
-}
-
-dd {
-    padding-bottom: .5em
-}
-
-#matchtricks,
+#matching_game,
 #supplementary {
     width: 100%;
     max-width: 720px;
     margin: auto;
-    background: #f1f1f1;
     text-shadow: 0 0 1px #fff
+}#supplementary{
+    background: #f1f1f1;
+    margin-top:34px;
 }
 
 #main {
@@ -76,30 +43,66 @@ dd {
     text-align: center
 }
 
-#output,
-#config,
-#validation_notification {
-    padding: .5em 0
+#config,#output_container{
+    padding: .5em 0;
 }
+#config{
+  background:#f1f1f1;color:#555;
+}
+#output_container{
+    background:#fff;
+}
+#difficulty{
+  width:100%;
+  background:#fff;
 
-#validation_notification {
+  border:none;    font-size: 16px;
+  padding: 0 .25em;  border-radius: .125em;
+  /*display:inline-block;
+  width:40%;*/
+}
+#timer{
+  display:block;
+  border-radius: .125em;
+  background:#fff;color:#222;
+  padding: 0 .25em;
+}
+#timer_label{padding: 0 .25em;color:#555;}
+#difficulty_label{padding: 0 .25em;color:#555;}
+/*#validation_notification {
     background: #ccc
+}*/
+#game_complete{
+  background:#f1f1f1;
+  padding:.5em .25em;
+  margin: .5em 0;
+  color:#555;
 }
-
-#game_vals {
-    margin: 0
-}
+/*#game_vals {
+    margin: 1em 0 0 0;
+}*/
 
 #game_vals ul {
     text-align: center;
     padding: 0;
     margin: 0
-}
-
-#game_vals ul li {
+}#game_vals ul li label{
+  letter-spacing:.1em;
+}#game_vals ul li {
     display: inline-block;
-    width: 30%;
-    text-align: right
+    width: 31%;
+    text-align:center
+}#game_vals ul li:first-child{
+  text-align:left;
+}#game_vals ul li:last-child{
+  text-align:left;
+}
+#game_vals ul li:nth-child(1){
+  text-align:left;
+}#game_vals ul li:nth-child(2){
+  text-align:center;border:1px solif #000
+}#game_vals ul li:nth-child(3){
+  text-align:right;
 }
 
 #supplementary {
@@ -115,75 +118,46 @@ dd {
     float: left;
     border-radius: .025em;
     box-shadow: inset 0 0 .05em #000
-}
-
-.cell:hover {
+}.cell:hover {
     opacity: .75;
     box-shadow: none
 }
 
 .variant_0 {
-    background: maroon
-}
+    background: maroon;
 
-.variant_1 {
-    background: #473C8B
-}
-
-.variant_2 {
+}.variant_1 {
+    background: #473C8B;
+    content: "A";
+    color:#fff;
+}.variant_2 {
     background: #3D9140
-}
-
-.variant_3 {
+}.variant_3 {
     background: #FF0
-}
-
-.variant_4 {
+}.variant_4 {
     background: #EE9A00
-}
-
-.variant_5 {
+}.variant_5 {
     background: #DDA0DD
-}
-
-.variant_6 {
+}.variant_6 {
     background: #008B8B
-}
-
-.variant_7 {
+}.variant_7 {
     background: #EE6363
-}
-
-.variant_8 {
+}.variant_8 {
     background: navy;
     background: #3ff
-}
-
-.variant_9 {
+}.variant_9 {
     background: #8B5A2B
-}
-
-.variant_10 {
+}.variant_10 {
     background: #F0E68C
-}
-
-.variant_11 {
+}.variant_11 {
     background: #CD3700
-}
-
-.variant_12 {
+}.variant_12 {
     background: #00CD66
-}
-
-.variant_13 {
+}.variant_13 {
     background: #4D4D4D
-}
-
-.variant_14 {
+}.variant_14 {
     background: #9B30FF
-}
-
-.variant_15 {
+}.variant_15 {
     background: #FF82AB
 }
 
@@ -192,3 +166,6 @@ dd {
 }
 
 .error{background:#fff;font-weight:300;border-radius:.25em}
+.hide {
+    display: none
+}

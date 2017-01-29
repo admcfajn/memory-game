@@ -1,13 +1,15 @@
 var
-	ux_cells_wide = document.getElementById('cells_wide'),
-	ux_cells_high = document.getElementById('cells_high'),
-	ux_number_variants = document.getElementById('number_variants'),
-	ux_number_each_variant = document.getElementById('number_each_variant');
+	difficulty = document.getElementById('difficulty'),
+	// ux_cells_wide = document.getElementById('cells_wide'),
+	// ux_cells_high = document.getElementById('cells_high'),
+	// ux_number_variants = document.getElementById('number_variants'),
+	// ux_number_each_variant = document.getElementById('number_each_variant');
 	/* array of all inputs to be populated */
-	dropElements = [ux_cells_wide,ux_cells_high,ux_number_variants,ux_number_each_variant];
+	dropElements = [difficulty];
+	// dropElements = [ux_cells_wide,ux_cells_high,ux_number_variants,ux_number_each_variant];
 	gameParams = [];
 /**/
-for(var i = 5; i < 16; i++ ){
+for(var i = 4; i < 16; i++ ){
 	gameParams.push(i.toString());
 }
 

@@ -1,60 +1,85 @@
 <!DOCTYPE html>
-<html lang="en-US">
 <head>
-	<title>memory game</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+    <title>Memory Game - Matching/Sequencing/Pattern-Recognition Game</title>
+    <!--
+    Copyright (C) 2016 Adam McFadyen / dabzo Interaction
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    Except as contained in this notice, the name of the Adam McFadyen / dabzo Interaction shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from the Adam McFadyen / dabzo Interaction.
+   -->
+	 <link rel=stylesheet type=text/css href=style.css?ver=1.0.2>
 </head>
 <body onload="init()">
-	<div id="config_container">
-		<div id="config">
+	<div id="matching_game">
+    <div id="config_container">
+  		<div id="config">
 
-			<form id=game_vals>
-					<ul>
-							<li>
-									<label>Cells Wide:
-											<select id="cells_wide" name="cells_wide" />
-											<select>
-									</label>
-							</li>
-							<li>
-									<label>Cells High:
-											<select id="cells_high" name="cells_high" />
-											<select>
-									</label>
-							</li>
-							<li>Cells Total: <span id="cell_output"></span></li>
-					</ul>
-					<ul>
-							<li>
-									<label>Variants:
-											<select id="number_variants" name="number_variants" />
-											<select>
-									</label>
-							</li>
-							<li>
-									<label># Each Variant:
-											<select id="number_each_variant" name="number_each_variant" />
-											<select>
-									</label>
-							</li>
-							<li>Variants Total: <span id="variant_output"></span></li>
-					</ul>
-			</form>
+  			<form id=game_vals>
+  					<ul>
+  							<li>
+  									<label id="difficulty_label">
+                      <strong>D</strong>ifficulty:
+  									</label>
+                    <select id="difficulty" name="difficulty" />
+                    <select>
+  							</li>
+  							<li>
+  									<label><strong>M</strong>emory<br> <strong>G</strong>ame
+  									</label>
+  							</li>
+  							</li>
+  							<li>
+  									<label id="timer_label">
+                      <strong>T</strong>imer:
+  									</label>
+                    <span id="timer">00:00:00</span>
+  							</li>
+  					</ul>
+  			</form>
 
-		</div>
-		<div id="validation_notification"></div>
-		<div id=output_container>
-				<div id=output></div>
-		</div>		
-	</div>
-	<!-- <span id="hide_config">Hide / Show Config</span> -->
-	<div id="main">
-		<div id="container_wrapper" class="container_wrapper">
+  		</div>
+  		<div id="validation_notification"></div>
+  		<div id=output_container>
+  				<div id=output></div>
+  		</div>
+  	</div>
+  	<!-- <span id="hide_config">Hide / Show Config</span> -->
+  	<div id="main">
+  		<div id="container_wrapper" class="container_wrapper">
 
-		</div>
+  		</div>
+  	</div>
 	</div>
 
-<script type="text/javascript" src="ux.js"></script>
-<script type="text/javascript" src="game.js"></script>
+	<div id=supplementary>
+			<div class=content-inner>
+					<h1>Memory, Matching, Sequencing Game</h1>
+					<p>A timed matching, sequencing, pattern-recognition game.</p>
+          <h2>Rules</h2>
+          <ul>
+            <li>Don't click the same cell twice.</li>
+            <li>Click all cells of one type before clicking a cell with different type.</li>
+          </ul>
+
+          <p>The goal is to match similar cells on a grid.</p>
+          <p>Click all cells of the same type to win. Without clicking the same cell twice.</p>
+          <p>After clicking all cells of the same type: Begin a new type.</p>
+
+					<h2>How to Win</h2>
+					<p>Click the cells in the correct order; Don't click the same cell twice.</p>
+					<ul>
+							<li>Click every cell of the same type. Without clicking the same cell twice.</li>
+							<li>After clicking every cell of the same type, click a different type and continue</li>
+							<li>After clicking every cell in the game-area, clicking all similar cells sequentially, without clicking the same cell twice: <strong>Y</strong>ou <strong>W</strong>in!</li>
+							<li>Try again with more cells</li>
+					</ul>
+
+					<p style=text-align:center><a title="Memory Game Open Source on GitHub" href=https://github.com/dabzo/memory-game target=_blank>Memory Game Open Source Repo</a> &copy; <a href=http://dabzo.com target=_blank>Adam McFadyen 2016 - dabzo Interaction</a>
+				</div>
+	</div>
+
+<script type="text/javascript" src="ux.js?ver=1.0.2"></script>
+<script type="text/javascript" src="game.js?ver=1.0.6"></script>
 </body>
 </html>
