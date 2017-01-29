@@ -77,14 +77,13 @@ dd {
 }
 
 #output,
-#config,
-#validation_notification {
+#config{
     padding: .5em 0
 }
 
-#validation_notification {
+/*#validation_notification {
     background: #ccc
-}
+}*/
 
 #game_vals {
     margin: 0
@@ -99,7 +98,23 @@ dd {
 #game_vals ul li {
     display: inline-block;
     width: 30%;
-    text-align: right
+    text-align:center
+}
+#game_vals ul li:first-child{
+  text-align:left;
+}
+}
+#game_vals ul li:last-child{
+  text-align:left;
+}
+#game_vals ul li:nth-child(1){
+  text-align:left;
+}
+#game_vals ul li:nth-child(2){
+  text-align:center;border:1px solif #000
+}
+#game_vals ul li:nth-child(3){
+  text-align:right;
 }
 
 #supplementary {

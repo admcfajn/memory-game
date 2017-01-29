@@ -9,7 +9,7 @@ var
 	// dropElements = [ux_cells_wide,ux_cells_high,ux_number_variants,ux_number_each_variant];
 	gameParams = [];
 /**/
-for(var i = 5; i < 16; i++ ){
+for(var i = 4; i < 16; i++ ){
 	gameParams.push(i.toString());
 }
 
