@@ -124,41 +124,135 @@ body {
 }
 
 .variant_0 {
-    background: maroon;
-
-}.variant_1 {
     background: #473C8B;
-    content: "A";
-    color:#fff;
+    /*background: #473C8B;*/
+    background: repeating-linear-gradient(
+      315deg,
+      #473C8B 20%,
+      #332253
+    )
+}.variant_1 {
+    background: #FFFF00;
+    /*background: #BBBB00;*/
+    background: repeating-linear-gradient(
+      180deg,
+      #FFFF00 20%,
+      #BBBB00
+    )
 }.variant_2 {
-    background: #3D9140
+    background: #830519;
+    /*background: #730000;*/
+    background: repeating-linear-gradient(
+      270deg,
+      #830519 12%,
+      #730000
+    );
 }.variant_3 {
-    background: #FF0
+    background: #44cc11;
+    /*background: #3D9140;*/
+    background: repeating-linear-gradient(
+      135deg,
+      #44cc11 20%,
+      #3D9140
+    );
 }.variant_4 {
-    background: #EE9A00
+    background: #EE9A00;
+    /*background: #CC8800;*/
+    background: repeating-linear-gradient(
+      225deg,
+      #EE9A00 20%,
+      #CC8800
+    );
 }.variant_5 {
-    background: #DDA0DD
+    background: #DDA0DD;
+    /*background: #CC8800;*/
+    background: repeating-linear-gradient(
+      90deg,
+      #DDA0DD 12%,
+      #CC80CC
+    );
 }.variant_6 {
-    background: #008B8B
+    background: #008B8B;
+    /*background: #006565;*/
+    background: repeating-linear-gradient(
+      45deg,
+      #008B8B 20%,
+      #006565
+    );
 }.variant_7 {
-    background: #EE6363
-}.variant_8 {
-    background: navy;
-    background: #3ff
+    background: #EE6363;
+    /*background: #CC3636;*/
+    background: repeating-linear-gradient(
+      0deg,
+      #EE6363 20%,
+      #CC3636
+    );
+}
+
+.variant_8 {
+    /*background: #00CCCC;*/
+    background: #33FFFF;
+    background: repeating-linear-gradient(
+      315deg,
+      #00CCCC 20%,
+      #33FFFF
+    )
 }.variant_9 {
-    background: #8B5A2B
+    /*background: #683C09;*/
+    background: #8B5A2B;
+    background: repeating-linear-gradient(
+      180deg,
+      #683C09 20%,
+      #8B5A2B
+    )
 }.variant_10 {
-    background: #F0E68C
+    /*background: #C0B469;*/
+    background: #F0E68C;
+    background: repeating-linear-gradient(
+      270deg,
+      #C0B469 12%,
+      #F0E68C
+    );
 }.variant_11 {
-    background: #CD3700
+    /*background: #3D9140;*/
+    background: #CC1600;
+    background: repeating-linear-gradient(
+      135deg,
+      #CC1600 20%,
+      #DD3711
+    );
 }.variant_12 {
-    background: #00CD66
+    /*background: #CC8800;*/
+    background: #00CD66;
+    background: repeating-linear-gradient(
+      225deg,
+      #00AC33 20%,
+      #00CD66
+    );
 }.variant_13 {
-    background: #4D4D4D
+    /*background: #CC8800;*/
+    background: #4D4D4D;
+    background: repeating-linear-gradient(
+      90deg,
+      #2D2D2D 12%,
+      #4D4D4D
+    );
 }.variant_14 {
-    background: #9B30FF
+    /*background: #7A00CC;*/
+    background: #9B30FF;
+    background: repeating-linear-gradient(
+      45deg,
+      #7A00CC 20%,
+      #9B30FF
+    );
 }.variant_15 {
-    background: #FF82AB
+    /*background: #CC608B;*/
+    background: #FF82AB;
+    background: repeating-linear-gradient(
+      0deg,
+      #CC608B 20%,
+      #FF82AB
+    );
 }
 
 .variant_empty {
