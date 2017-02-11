@@ -1,4 +1,4 @@
-![alt text](http://dabzo.com/wp-content/uploads/2016/05/memory-game-adam-mcfadyen-672x372.png "Matching Game")
+![alt text](http://dabzo.com/memory-game/memory-game-screenshot.png "Memory Game")
 
 
 # Memory, Matching, Sequencing Game
