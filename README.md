@@ -15,7 +15,7 @@ A timed matching, sequencing, pattern-recognition game.
  - Click every cell of the same type. Without clicking the same cell twice.
  - After clicking every cell of the same type, click a different type and continue
 
- ... After clicking every cell in the game-area, clicking all similar cells sequentially, without clicking the same cell twice: You Win!
+ After clicking every cell in the game-area, clicking all similar cells sequentially, without clicking the same cell twice: You Win!
 
  - **Try again with more cells**
 
