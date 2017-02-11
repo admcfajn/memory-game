@@ -1,8 +1,7 @@
-![alt text](http://dabzo.com/memory-game/memory-game-screenshot.png "Memory Game")
-
-
-# Memory, Matching, Sequencing Game
+# Memory, Matching, Sequencing Game - [Click Here to Play](http://dabzo.com/memory-game)
 A timed matching, sequencing, pattern-recognition game.
+
+![alt text](http://dabzo.com/memory-game/memory-game-screenshot.png "Memory Game")
 
 ### Rules
 
