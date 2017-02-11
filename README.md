@@ -1,3 +1,6 @@
+![alt text](http://dabzo.com/wp-content/uploads/2016/05/memory-game-adam-mcfadyen-672x372.png "Matching Game")
+
+
 # Memory, Matching, Sequencing Game
 A timed matching, sequencing, pattern-recognition game.
 
