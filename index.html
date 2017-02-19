@@ -1,14 +1,273 @@
 <!DOCTYPE html>
 <head>
-    <title>Memory Game - Matching/Sequencing/Pattern-Recognition Game</title>
-    <!--
-    Copyright (C) 2016 Adam McFadyen / dabzo Interaction
-    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-    Except as contained in this notice, the name of the Adam McFadyen / dabzo Interaction shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from the Adam McFadyen / dabzo Interaction.
-   -->
-	 <link rel=stylesheet type=text/css href=style.css?ver=1.1.0>
+  <title>Memory Game - Matching/Sequencing/Pattern-Recognition Game</title>
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px
+    }
+
+    #matching_game,
+    #supplementary {
+        width: 100%;
+        max-width: 720px;
+        margin: auto;
+        text-shadow: 0 0 1px #fff
+    }#supplementary{
+        background: #f1f1f1;
+        margin-top:34px;
+    }
+
+    #main {
+        width: 100%
+    }
+
+    #main,
+    #main .container_wrapper {
+        text-align: center
+    }
+
+    #main .container_wrapper {
+        background: #fff;
+        box-shadow: inset 0 0 1px #bbb;
+        margin: auto
+    }
+
+    #validation_notification {
+        text-align: center
+    }
+
+    #config_container,
+    #output_container {
+        width: 100%;
+        height: auto;
+        margin: auto;
+        text-align: center
+    }
+
+    #config,#output_container{
+        padding: .5em 0;
+    }
+    #config{
+      background:#f1f1f1;color:#555;
+    }
+    #output_container{
+        background:#fff;
+    }
+    #difficulty{
+      width:100%;
+      background:#fff;
+
+      border:none;    font-size: 16px;
+      padding: 0 .25em;  border-radius: .125em;
+      /*display:inline-block;
+      width:40%;*/
+    }
+    #timer{
+      display:block;
+      border-radius: .125em;
+      background:#fff;color:#222;
+      padding: 0 .25em;
+    }
+    #timer_label{padding: 0 .25em;color:#555;}
+    #difficulty_label{padding: 0 .25em;color:#555;}
+    /*#validation_notification {
+        background: #ccc
+    }*/
+    #game_complete{
+      background:#f1f1f1;
+      padding:.5em .25em;
+      margin: .5em 0;
+      color:#555;
+    }
+    /*#game_vals {
+        margin: 1em 0 0 0;
+    }*/
+
+    #game_vals ul {
+        text-align: center;
+        padding: 0;
+        margin: 0
+    }#game_vals ul li label{
+      letter-spacing:.1em;
+    }#game_vals ul li {
+        display: inline-block;
+        width: 31%;
+        text-align:center
+    }#game_vals ul li:first-child{
+      text-align:left;
+    }#game_vals ul li:last-child{
+      text-align:left;
+    }
+    #game_vals ul li:nth-child(1){
+      text-align:left;
+    }#game_vals ul li:nth-child(2){
+      text-align:center;border:1px solif #000
+    }#game_vals ul li:nth-child(3){
+      text-align:right;
+    }
+
+    #supplementary {
+        max-width: 720px;
+        border-top: .5em groove #ccc
+    }
+
+    .content-inner {
+        padding: 20px
+    }
+
+    .cell {
+        float: left;
+        border-radius: .025em;
+        box-shadow: inset 0 0 .05em #000
+    }.cell:hover {
+        opacity: .75;
+        box-shadow: none
+    }
+
+    .variant_0 {
+        background: #473C8B;
+        /*background: #473C8B;*/
+        background: repeating-linear-gradient(
+          315deg,
+          #473C8B 20%,
+          #332253
+        )
+    }.variant_1 {
+        background: #FFFF00;
+        /*background: #BBBB00;*/
+        background: repeating-linear-gradient(
+          180deg,
+          #FFFF00 20%,
+          #BBBB00
+        )
+    }.variant_2 {
+        background: #830519;
+        /*background: #730000;*/
+        background: repeating-linear-gradient(
+          270deg,
+          #830519 12%,
+          #730000
+        );
+    }.variant_3 {
+        background: #44cc11;
+        /*background: #3D9140;*/
+        background: repeating-linear-gradient(
+          135deg,
+          #44cc11 20%,
+          #3D9140
+        );
+    }.variant_4 {
+        background: #EE9A00;
+        /*background: #CC8800;*/
+        background: repeating-linear-gradient(
+          225deg,
+          #EE9A00 20%,
+          #CC8800
+        );
+    }.variant_5 {
+        background: #DDA0DD;
+        /*background: #CC8800;*/
+        background: repeating-linear-gradient(
+          90deg,
+          #DDA0DD 12%,
+          #CC80CC
+        );
+    }.variant_6 {
+        background: #008B8B;
+        /*background: #006565;*/
+        background: repeating-linear-gradient(
+          45deg,
+          #008B8B 20%,
+          #006565
+        );
+    }.variant_7 {
+        background: #EE6363;
+        /*background: #CC3636;*/
+        background: repeating-linear-gradient(
+          0deg,
+          #EE6363 20%,
+          #CC3636
+        );
+    }
+
+    .variant_8 {
+        /*background: #00CCCC;*/
+        background: #33FFFF;
+        background: repeating-linear-gradient(
+          315deg,
+          #00CCCC 20%,
+          #33FFFF
+        )
+    }.variant_9 {
+        /*background: #683C09;*/
+        background: #8B5A2B;
+        background: repeating-linear-gradient(
+          180deg,
+          #683C09 20%,
+          #8B5A2B
+        )
+    }.variant_10 {
+        /*background: #C0B469;*/
+        background: #F0E68C;
+        background: repeating-linear-gradient(
+          270deg,
+          #C0B469 12%,
+          #F0E68C
+        );
+    }.variant_11 {
+        /*background: #3D9140;*/
+        background: #CC1600;
+        background: repeating-linear-gradient(
+          135deg,
+          #CC1600 20%,
+          #DD3711
+        );
+    }.variant_12 {
+        /*background: #CC8800;*/
+        background: #00CD66;
+        background: repeating-linear-gradient(
+          225deg,
+          #00AC33 20%,
+          #00CD66
+        );
+    }.variant_13 {
+        /*background: #CC8800;*/
+        background: #4D4D4D;
+        background: repeating-linear-gradient(
+          90deg,
+          #2D2D2D 12%,
+          #4D4D4D
+        );
+    }.variant_14 {
+        /*background: #7A00CC;*/
+        background: #9B30FF;
+        background: repeating-linear-gradient(
+          45deg,
+          #7A00CC 20%,
+          #9B30FF
+        );
+    }.variant_15 {
+        /*background: #CC608B;*/
+        background: #FF82AB;
+        background: repeating-linear-gradient(
+          0deg,
+          #CC608B 20%,
+          #FF82AB
+        );
+    }
+
+    .variant_empty {
+        background: transparent
+    }
+
+    .error{background:#fff;font-weight:300;border-radius:.25em}
+    .hide {
+        display: none
+    }
+  </style>
 </head>
 <body onload="init()">
 	<div id="matching_game">
@@ -44,7 +303,7 @@
   				<div id=output></div>
   		</div>
   	</div>
-  	<!-- <span id="hide_config">Hide / Show Config</span> -->
+
   	<div id="main">
   		<div id="container_wrapper" class="container_wrapper">
 
@@ -78,8 +337,366 @@
 					<p style=text-align:center><a title="Memory Game Open Source on GitHub" href=https://github.com/dabzo/memory-game target=_blank>Memory Game Open Source Repo</a> &copy; <a href=http://dabzo.com target=_blank>Adam McFadyen 2016 - dabzo Interaction</a>
 				</div>
 	</div>
+  <script>
+    var
+    	difficulty = document.getElementById('difficulty'),
+      // inputs for each grid paremeter. relevant code in comments throughout.
+    	// ux_cells_wide = document.getElementById('cells_wide'),
+    	// ux_cells_high = document.getElementById('cells_high'),
+    	// ux_number_variants = document.getElementById('number_variants'),
+    	// ux_number_each_variant = document.getElementById('number_each_variant');
+    	/* array of all inputs to be populated */
+    	dropElements = [difficulty];
+    	// dropElements = [ux_cells_wide,ux_cells_high,ux_number_variants,ux_number_each_variant];
+    	gameParams = [];
+    /**/
+    for(var i = 3; i < 16; i++ ){
+    	gameParams.push(i.toString());
+    }
 
-<script type="text/javascript" src="ux.js?ver=1.1.0"></script>
-<script type="text/javascript" src="game.js?ver=1.1.0"></script>
+    for(var i = 0; i < dropElements.length; i++ ){
+    	for(var k = 0; k < gameParams.length; k++ ){
+
+    		dropElements[i].add( new Option( gameParams[k], [gameParams[k] ] ) );
+
+    	}
+    }
+    // Copyright (C) 2016 Adam McFadyen / dabzo Interaction
+    // Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    // The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    // THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+    // Except as contained in this notice, the name of the Adam McFadyen / dabzo Interaction shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from the Adam McFadyen / dabzo Interaction.
+
+    var
+    gameWidth = document.getElementById('main').offsetWidth,
+    gameHeight = gameWidth * 0.65,
+
+    container_wrapper = document.getElementById('container_wrapper'),
+    difficulty = document.getElementById('difficulty'),
+    // cells_wide = document.getElementById('cells_high'),
+    // cells_high = document.getElementById('cells_high'),
+    // number_variants = document.getElementById('number_variants'),
+    // number_each_variant = document.getElementById('number_each_variant'),
+    // cell_output = document.getElementById('cell_output'),
+    // variant_output = document.getElementById('variant_output'),
+    validation_notification = document.getElementById('validation_notification'),
+    output = document.getElementById('output'),
+    timer = document.getElementById('timer'),
+
+    cellsWide = difficulty.value,
+    cellsHigh = difficulty.value,
+    numVariants = difficulty.value,
+    numEachVariant = difficulty.value,
+    totalCells = (cellsWide * cellsHigh),
+    totalVariants = (numVariants*numEachVariant),
+    theVariants = build_variants(numVariants, numEachVariant),
+
+    variantClasses = [],
+    cellList = [],
+    matchScore = 0,
+    allMatched = [],
+    clickedCells = [],
+    completeMatches = [];
+
+    /**/
+    // cell_output.innerHTML = totalCells;
+    // variant_output.innerHTML = totalVariants;
+
+
+    gameOn = false;
+    if (totalVariants == totalCells) {
+    	gameOn = true;
+    	// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+    } else {
+    	if (totalVariants > totalCells) {
+    		// validation_notification.innerHTML = numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.';
+    	} else {
+    		if (totalVariants < totalCells) {
+    			gameOn = true;
+    			// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+    		} else {
+    			// validation_notification.innerHTML = '&nbsp;';
+    		}
+    	}
+    }
+
+    // document.getElementById('hide_config').addEventListener('change', function(){
+    // 	document.getElementById('config_container').classlist.toggle('hide');
+    // 	document.getElementById('hide_config').classlist.toggle('config-hidden');
+    // });
+
+    container_wrapper.addEventListener('change', inputParamsChanged);
+    difficulty.addEventListener('change', inputParamsChanged);
+    // cells_wide.addEventListener('change', inputParamsChanged);
+    // cells_high.addEventListener('change', inputParamsChanged);
+    // number_variants.addEventListener('change', inputParamsChanged);
+    // number_each_variant.addEventListener('change', inputParamsChanged);
+
+    function updateTimer() {
+    		var myTime = timer.innerHTML;
+    		var ss = myTime.split(':');
+    		var dt = new Date();
+    		dt.setHours(ss[0]);
+    		dt.setMinutes(ss[1]);
+    		dt.setSeconds(ss[2]);
+
+    		var dt2 = new Date(dt.valueOf() + 1000);
+    		var ts = dt2.toTimeString().split(' ')[0];
+    		timer.innerHTML = ts;
+    		window.timerTimeout = setTimeout(updateTimer, 1000);
+    }
+
+    function inputParamsChanged(){
+    	cellsWide = document.getElementById('difficulty').value;
+    	cellsHigh = document.getElementById('difficulty').value;
+    	numVariants = document.getElementById('difficulty').value;
+    	numEachVariant = document.getElementById('difficulty').value;
+    	totalCells = (cellsWide * cellsHigh);
+    	totalVariants = (numVariants*numEachVariant);
+
+    	// cell_output.innerHTML = totalCells;
+    	// variant_output.innerHTML = totalVariants;
+
+    	// console.log('currentVariantCount',totalVariants);
+
+    	if (totalVariants == totalCells) {
+    		gameOn = true;
+    		// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+    	} else {
+    		if (totalVariants > totalCells) {
+    				gameOn = false;
+    				// validation_notification.innerHTML = '<strong class='error too-many-variants'>' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.</span>';
+    		} else {
+    			if (totalVariants < totalCells) {
+    				gameOn = true;
+    				// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+    			} else {
+    			gameOn = false;
+    				// validation_notification.innerHTML = '&nbsp';
+    			}
+    		}
+    	}
+
+    	matchScore = 0;
+    	allMatched = [];
+    	clickedCells = [];
+    	completeMatches = [];
+    	output.innerHTML = '&nbsp;';
+
+    	clear_children(container_wrapper);
+    	theVariants = build_variants(numVariants, numEachVariant);
+    	plot(container_wrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
+    	addCellListeners();
+    	resetTimer();
+    }
+
+    function clear_children(target){
+    	while (target.firstChild) {
+    		target.removeChild(target.firstChild);
+    	}
+    }
+
+    function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+    }
+
+    function build_variants(num_variants, num_each_variant){
+    	variantList = [];
+    	for(x=0;x<=num_variants;x++){
+    		variantList.push([]);
+    		variantList[x].push('variant_'+x);
+    		variantList[x].push(num_each_variant);
+    	}
+    	return variantList;
+    }
+
+    function assign_variant(elem, variant_list, num_variants){
+    	currentVariant = getRandomInt(0,num_variants);
+
+    	if(totalVariants){
+    		currentVariant = getRandomInt(0,num_variants);
+    		// +1 to randomInt limit for buffer cells (bonus, traps, etc...)
+    		if(theVariants[currentVariant][1]>0){
+    			currentVariantCount = theVariants[currentVariant][1];
+    			elem.className = elem.className+' variant_'+currentVariant;
+    			theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
+    			totalVariants--;
+    		}else{
+    			assign_variant(elem, variants, num_variants);
+    		}
+    	}else{
+    		elem.className = elem.className+' variant_empty';
+    	}
+    	// console.log(currentVariantCount,totalVariants);
+    }
+
+    // function fixErrorsModal() {
+    // 	alert('Please fix game config before playing');
+    // }
+
+    function clickCell(){
+    	// todo add 'empty' exception in rand# +1 to max include 'empty' before indexes reach 0
+    	if (gameOn == false) {
+    	fixErrorsModal();
+    	return;
+    	};
+    	var self = this;
+    	var itMatched = false;
+    	var pushCell = true;
+    	var chainMatches = false;
+
+    	var varClassRe = /variant_\d+/;varClass = varClassRe.exec(self.className);
+    	var varCellRe = /cell_\d+_\d+/;varCell = varCellRe.exec(self.className);
+
+    	for(i=0;i<clickedCells.length;i++){
+    		if(varCell==clickedCells[i][0]){
+    			pushCell = false;
+    		}
+    	}
+
+    	if(pushCell){
+    		allMatched.push(varClass);
+    		clickedCells.push(varCell);
+    	}
+
+    	for(i=0;i<allMatched.length;i++){
+    		if(allMatched[0][0]==allMatched[i][0]){
+    			itMatched = true;
+    		}else{
+    			itMatched = false;
+    		}
+    	}
+
+    	if(allMatched.length == numEachVariant){
+    		completeMatches.push(allMatched);
+    		allMatched = [];
+    	}
+
+    	// console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells);
+    	output.innerHTML = ' -  clicked variants: '+allMatched, ' & clicked cells: '+clickedCells;
+
+    	/* drop or keep score on previous cell click - consider toggle */
+    	if(itMatched == true && pushCell == false){
+    		matchScore = 0;
+    		allMatched = [];
+    		clickedCells = [];
+    		completeMatches = [];
+    		output.innerHTML = 'You clicked that one already! Try Again';
+    		resetTimer();
+    	}else if(itMatched == true){
+    		matchScore++;
+    		var responseEncouragement = [
+    			'<strong>W</strong>in!',
+    			'<strong>E</strong>pic!',
+    			'<strong>G</strong>reat!',
+    			'<strong>S</strong>weet!',
+    			'<strong>A</strong>wesome!',
+    			'<strong>F</strong>antastic!',
+    			'<strong>#</strong>likeaboss',
+    			'<strong>Y</strong>a done good.',
+    			'<strong>Y</strong>ou <strong>R</strong>ule!',
+    			'<strong>B</strong>oo <strong>Y</strong>eah!',
+    			'<strong>G</strong>ood <strong>O</strong>ne!',
+    			'<strong>N</strong>ice <strong>O</strong>ne!',
+    			'<strong>R</strong>ock <strong>S</strong>tar!',
+    			'<strong>V</strong>ery <strong>G</strong>ood!',
+    			'<strong>W</strong>ay to <strong>G</strong>o!',
+    			'<strong>T</strong>op <strong>K</strong>notch!',
+    			'<strong>W</strong>hoaly <strong>C</strong>row!',
+    			'<strong>N</strong>icely <strong>D</strong>one!',
+    		];
+    		var winPhrase = responseEncouragement[Math.floor(Math.random() * responseEncouragement.length)];
+    		output.innerHTML = winPhrase+' '+matchScore+' in a row';
+    		// output.innerHTML += '<br>clickedCells: '+clickedCells;
+    		// output.innerHTML += '<br>allMatched: '+allMatched;
+    		// output.innerHTML += '<br>completeMatches: '+completeMatches;
+    		console.log(completeMatches);
+
+    		if(completeMatches.length == numVariants){
+    			output.innerHTML += '<div id="game_complete"><strong>G</strong>ame <strong>C</strong>omplete! You made <strong>'+matchScore+'</strong> correct selections in <strong>'+timer.innerHTML+'</strong></div><div id="play_again"><strong>P</strong>lay <strong>A</strong>gain? Select a different difficulty level!</div>';
+    			matchScore = 0;
+    			allMatched = [];
+    			clickedCells = [];
+    			completeMatches = [];
+    			// output.innerHTML += '<span id='play_again'>Play Again?</span><br>~!! You win! '+matchScore+' correct selections in '+timer.innerHTML+' !!~';
+    			// var play_again = document.getElementById('play_again');
+    			// play_again.addEventListener('click', window.location.reload(), false);
+
+    			resetTimer();
+    			// output.innerHTML += '<br>You win! <a href='#' class='play-again'>Play Again?</a>';
+    		}
+    	}else{
+    		matchScore = 0;
+    		allMatched = [];
+    		clickedCells = [];
+    		completeMatches = [];
+    		output.innerHTML = 'Sorry! Try Again';
+    		resetTimer();
+    	}
+    }
+    function resetTimer(){
+    	window.clearTimeout(timerTimeout);
+    	document.getElementById('timer').innerHTML = '00:00:00';
+    	window.timerTimeout = setTimeout(updateTimer, 1000);
+    }
+
+    function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
+
+    	variants = theVariants;
+
+    	for(x=0;x<cellshigh;x++){
+
+    		var lengthContainer = document.createElement('div');
+
+    		container.style.height = gameHeight+'px';
+    		container.style.width = gameWidth+'px';
+
+    		container.appendChild(lengthContainer);
+    			lengthContainer.style.width = '100%';
+    			lengthContainer.style.height = (gameHeight/cellshigh)+'px';
+    			lengthContainer.id = 'length_'+x;
+    			lengthContainer.className = 'length num'+x;
+
+    		// This variable must be cast after .appendChild(lengthContainer)
+    		var lengthCurrent = document.getElementById('length_'+x);
+
+    		for(y=0;y<cellswide;y++){
+
+    			var cellContainer = document.createElement('div');
+
+    			lengthCurrent.appendChild(cellContainer);
+    				cellContainer.style.width = (gameWidth/cellswide)+'px';
+    				cellContainer.style.height = (gameHeight/cellshigh)+'px';
+    				cellContainer.id = 'cell_'+x+'_'+y;
+    				cellContainer.className = 'cell cell_'+x+'_'+y;
+
+    			cellList.push([]);
+    			cellCoords = (x * cellswide) + y;
+
+    			cellList[cellCoords].push('cell_'+x+'_'+y);
+    			cellList[cellCoords].push(num_variants);
+
+    			assign_variant(cellContainer, variants, num_variants);
+    			//console.log(cellList);assign_variant(cellContainer);
+    		}
+    	}
+    }
+
+    function addCellListeners(){
+    	var cellElems = container_wrapper.getElementsByClassName('cell');
+    	for (var i = 0; i < cellElems.length; i++) {
+    		cellElems[i].addEventListener('click', clickCell, false);
+    	}
+    }
+
+    function init(){
+    	plot(container_wrapper, cellsWide, cellsHigh, numVariants, numEachVariant);
+    	addCellListeners();
+    	window.timerTimeout = setTimeout(updateTimer, 1000);
+    	output.innerHTML = '&nbsp;';
+    }
+
+  </script>
+
 </body>
 </html>
