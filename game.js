@@ -170,10 +170,10 @@ function assign_variant(elem, variant_list, num_variants){
 }
 
 
-// window.localStorage.removeItem( 'dzo_Memory_Game_HighScores' );
+// window.localStorage.removeItem( 'dabzo_Memory_Game_HighScores' );
 function saveHighScore(score,time){
 
-	var highScoresData = window.localStorage.getItem('dzo_Memory_Game_HighScores');
+	var highScoresData = window.localStorage.getItem('dabzo_Memory_Game_HighScores');
 	if( highScoresData ){
 		var newHighScoresData = JSON.stringify( {'score':score,'time':time} );
 		var newHighScoresObject = JSON.parse( highScoresData );
@@ -186,7 +186,7 @@ function saveHighScore(score,time){
 
 		newHighScoresObject[1] = newHighScoresData;
 	}
-	window.localStorage.setItem( 'dzo_Memory_Game_HighScores', JSON.stringify( newHighScoresObject ) );
+	window.localStorage.setItem( 'dabzo_Memory_Game_HighScores', JSON.stringify( newHighScoresObject ) );
 
 }
 
