@@ -1,8 +1,4 @@
-// Copyright (C) 2016 Adam McFadyen / dabzo Interaction
-// Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
-// The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE X CONSORTIUM BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-// Except as contained in this notice, the name of the Adam McFadyen / dabzo Interaction shall not be used in advertising or otherwise to promote the sale, use or other dealings in this Software without prior written authorization from the Adam McFadyen / dabzo Interaction.
+// 2016-2017 Adam McFadyen / dabzo Interaction dabzo.com
 
 var
 gameWidth = document.getElementById('main').offsetWidth,
@@ -39,18 +35,20 @@ completeMatches = [];
 // cell_output.innerHTML = totalCells;
 // variant_output.innerHTML = totalVariants;
 
-
 gameOn = false;
 if (totalVariants == totalCells) {
 	gameOn = true;
-	// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+	// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant;
+	// validation_notification.innerHTML += ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
 } else {
 	if (totalVariants > totalCells) {
-		// validation_notification.innerHTML = numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.';
+		// validation_notification.innerHTML = numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ';
+		// validation_notification.innerHTML += cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.';
 	} else {
 		if (totalVariants < totalCells) {
 			gameOn = true;
-			// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+			// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... ';
+			// validation_notification.innerHTML += 'or just play the game!';
 		} else {
 			// validation_notification.innerHTML = '&nbsp;';
 		}
@@ -98,15 +96,19 @@ function inputParamsChanged(){
 
 	if (totalVariants == totalCells) {
 		gameOn = true;
-		// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+		// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant;
+		// validation_notification.innerHTML += ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
 	} else {
 		if (totalVariants > totalCells) {
 				gameOn = false;
-				// validation_notification.innerHTML = '<strong class='error too-many-variants'>' + numVariants + ' Variants x ' + numEachVariant + ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.<br> Please use fewer variants or a larger grid.</span>';
+				// validation_notification.innerHTML = '<strong class=\'error too-many-variants\'>' + numVariants + ' Variants x ' + numEachVariant;
+				// validation_notification.innerHTML += ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.';
+				// validation_notification.innerHTML += '<br> Please use fewer variants or a larger grid.</span>';
 		} else {
 			if (totalVariants < totalCells) {
 				gameOn = true;
-				// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more variants, more of each variant... or just play the game!';
+				// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more ';
+				// validation_notification.innerHTML += 'variants, more of each variant... or just play the game!';
 			} else {
 			gameOn = false;
 				// validation_notification.innerHTML = '&nbsp';
@@ -134,7 +136,7 @@ function clear_children(target){
 }
 
 function getRandomInt(min, max) {
-return Math.floor(Math.random() * (max - min)) + min;
+	return Math.floor(Math.random() * (max - min)) + min;
 }
 
 function build_variants(num_variants, num_each_variant){
@@ -166,6 +168,37 @@ function assign_variant(elem, variant_list, num_variants){
 	}
 	// console.log(currentVariantCount,totalVariants);
 }
+
+
+// window.localStorage.removeItem( 'dzo_Memory_Game_HighScores' );
+function saveHighScore(score,time){
+
+	var highScoresData = window.localStorage.getItem('dzo_Memory_Game_HighScores');
+	if( highScoresData ){
+		var newHighScoresData = JSON.stringify( {'score':score,'time':time} );
+		var newHighScoresObject = JSON.parse( highScoresData );
+		var scoreSize = Object.size(newHighScoresObject);
+
+		newHighScoresObject[ scoreSize + 1 ] = newHighScoresData;
+	} else {
+		var newHighScoresData = JSON.stringify( {'score':score,'time':time} );
+		var newHighScoresObject = {};
+
+		newHighScoresObject[1] = newHighScoresData;
+	}
+	window.localStorage.setItem( 'dzo_Memory_Game_HighScores', JSON.stringify( newHighScoresObject ) );
+
+}
+
+
+
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 
 // function fixErrorsModal() {
 // 	alert('Please fix game config before playing');
@@ -223,24 +256,8 @@ function clickCell(){
 	}else if(itMatched == true){
 		matchScore++;
 		var responseEncouragement = [
-			'<strong>W</strong>in!',
-			'<strong>E</strong>pic!',
-			'<strong>G</strong>reat!',
-			'<strong>S</strong>weet!',
-			'<strong>A</strong>wesome!',
-			'<strong>F</strong>antastic!',
-			'<strong>#</strong>likeaboss',
-			'<strong>Y</strong>a done good.',
-			'<strong>Y</strong>ou <strong>R</strong>ule!',
-			'<strong>B</strong>oo <strong>Y</strong>eah!',
-			'<strong>G</strong>ood <strong>O</strong>ne!',
-			'<strong>N</strong>ice <strong>O</strong>ne!',
-			'<strong>R</strong>ock <strong>S</strong>tar!',
-			'<strong>V</strong>ery <strong>G</strong>ood!',
-			'<strong>W</strong>ay to <strong>G</strong>o!',
-			'<strong>T</strong>op <strong>K</strong>notch!',
-			'<strong>W</strong>hoaly <strong>C</strong>row!',
-			'<strong>N</strong>icely <strong>D</strong>one!',
+			'Win!', 'Epic!', 'Great!', 'Sweet!', 'Awesome!', 'Fantastic!', '#likeaboss', 'Ya done good.', 'You Rule!', 'Nicely Done!',
+			'Whoaly Crow!', 'Boo Yeah!', 'Good One!', 'Nice One!', 'Rock Star!', 'Very Good!', 'Way to Go!', 'Top Knotch!',
 		];
 		var winPhrase = responseEncouragement[Math.floor(Math.random() * responseEncouragement.length)];
 		output.innerHTML = winPhrase+' '+matchScore+' in a row';
@@ -250,17 +267,23 @@ function clickCell(){
 		console.log(completeMatches);
 
 		if(completeMatches.length == numVariants){
-			output.innerHTML += '<div id="game_complete"><strong>G</strong>ame <strong>C</strong>omplete! You made <strong>'+matchScore+'</strong> correct selections in <strong>'+timer.innerHTML+'</strong></div><div id="play_again"><strong>P</strong>lay <strong>A</strong>gain? Select a different difficulty level!</div>';
+			var matchTime = timer.innerHTML;
+			output.innerHTML += '<div id="game_complete">Game Complete! You made '+matchScore+' correct selections in '+matchTime+'</div>';
+			output.innerHTML += '<div id="play_again">Play Again? Select a different difficulty level!</div>';
+
+			saveHighScore(matchScore,matchTime);
+
 			matchScore = 0;
 			allMatched = [];
 			clickedCells = [];
 			completeMatches = [];
-			// output.innerHTML += '<span id='play_again'>Play Again?</span><br>~!! You win! '+matchScore+' correct selections in '+timer.innerHTML+' !!~';
+
+			resetTimer();
+
+			// todo: add new-game button to init.
 			// var play_again = document.getElementById('play_again');
 			// play_again.addEventListener('click', window.location.reload(), false);
 
-			resetTimer();
-			// output.innerHTML += '<br>You win! <a href='#' class='play-again'>Play Again?</a>';
 		}
 	}else{
 		matchScore = 0;
