@@ -2,7 +2,8 @@
 
 var
 gameWidth = document.getElementById('main').offsetWidth,
-gameHeight = gameWidth * 0.65,
+// gameHeight = gameWidth * 0.65,
+gameHeight = gameWidth * 0.40,
 
 container_wrapper = document.getElementById('container_wrapper'),
 difficulty = document.getElementById('difficulty'),
@@ -308,12 +309,12 @@ function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
 
     var lengthContainer = document.createElement('div');
 
-    container.style.height = gameHeight+'px';
-    container.style.width = gameWidth+'px';
+   container.style.height = gameHeight+'px';
+    container.style.width = gameWidth-(cellswide*2)+'px';
 
     container.appendChild(lengthContainer);
       lengthContainer.style.width = '100%';
-      lengthContainer.style.height = (gameHeight/cellshigh)+'px';
+      lengthContainer.style.height = (gameHeight/cellshigh)+'px'; 
       lengthContainer.id = 'length_'+x;
       lengthContainer.className = 'length num'+x;
 
@@ -325,8 +326,10 @@ function plot(container, cellswide, cellshigh, num_variants, num_each_variant){
       var cellContainer = document.createElement('div');
 
       lengthCurrent.appendChild(cellContainer);
-        cellContainer.style.width = (gameWidth/cellswide)+'px';
-        cellContainer.style.height = (gameHeight/cellshigh)+'px';
+ /*       cellContainer.style.width = (gameWidth/cellswide)+'px';
+        cellContainer.style.height = (gameHeight/cellshigh)+'px';  */
+		cellContainer.style.width = ((gameWidth/cellswide)-4)+'px';
+        cellContainer.style.height = ((gameHeight/cellshigh)-2)+'px'; 
         cellContainer.id = 'cell_'+x+'_'+y;
         cellContainer.className = 'cell cell_'+x+'_'+y;
 
