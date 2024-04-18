@@ -6,23 +6,28 @@
 
 const memoryGame = {
     gameWidth: document.getElementById('main').offsetWidth,
-    gameHeight: gameWidth * 0.65,
+    gameHeight: 500,//this.gameWidth * 0.65,
     
-    container_wrapper: document.getElementById('container_wrapper'),
+    container: document.getElementById('container_wrapper'),
     difficulty: document.getElementById('difficulty'),
     validation_notification: document.getElementById('validation_notification'),
     
     output: document.getElementById('output'),
     timer: document.getElementById('timer'),
     
-    cellsWide: difficulty.value,
-    cellsHigh: difficulty.value,
-    numVariants: difficulty.value,
-    numEachVariant: difficulty.value,
+    cellsWide: this.difficulty.value,
+    cellsHigh: this.difficulty.value,
+    numVariants: this.difficulty.value,
+    numEachVariant: this.difficulty.value,
     
-    totalCells: (cellsWide * cellsHigh),
-    totalVariants: (numVariants*numEachVariant),
-    theVariants: buildVariants(numVariants, numEachVariant),
+    totalCells: (this.cellsWide * this.cellsHigh),
+    totalVariants: (this.numVariants*this.numEachVariant),
+
+    // getVariants: function (num_variants, num_each_variant){
+    //     return this.buildVariants();
+    // },
+    // theVariants: this.getVariants(this.numVariants, this.numEachVariant),
+    theVariants: [],
     
     variantClasses: [],
     cellList: [],
@@ -32,7 +37,7 @@ const memoryGame = {
     completeMatches: [],
     gameOn: false,
 
-    setDiddlyEtUp: function() {
+    setUp: function() {
         /**  DEBUG: Uncomment throughout & add complimentary html  **/
         /* DEBUG <select id="cells_high"> */// cells_wide = document.getElementById('cells_high'),
         /* DEBUG <select id="cells_high"> */// cells_high = document.getElementById('cells_high'),
@@ -43,15 +48,15 @@ const memoryGame = {
         /* DEBUG */// cell_output.innerHTML = totalCells;
         /* DEBUG */// variant_output.innerHTML = totalVariants;
 
-        checkGameInput(totalVariants,totalCells);
+        this.checkGameInput(this.totalVariants,this.totalCells);
 
         /* DEBUG */// document.getElementById('hide_config').addEventListener('change', function(){
             /* DEBUG *///   document.getElementById('config_container').classlist.toggle('hide');
             /* DEBUG *///   document.getElementById('hide_config').classlist.toggle('config-hidden');
         /* DEBUG */// });
 
-        container_wrapper.addEventListener('change', inputParamsChanged);
-        difficulty.addEventListener('change', inputParamsChanged);
+        this.container.addEventListener('change', this.inputParamsChanged);
+        this.difficulty.addEventListener('change', this.inputParamsChanged);
 
         /* DEBUG */// cells_wide.addEventListener('change', inputParamsChanged);
         /* DEBUG */// cells_high.addEventListener('change', inputParamsChanged);
@@ -59,39 +64,41 @@ const memoryGame = {
         /* DEBUG */// number_each_variant.addEventListener('change', inputParamsChanged);
     },
 
-
-
     // Set grid variables
     setGridVars: function (){
+        console.log('setGridVars');
         // difficulty = document.getElementById('difficulty'),
-        cellsWide = difficulty.value;
-        cellsHigh = difficulty.value;
-        numVariants = difficulty.value;
-        numEachVariant = difficulty.value;
-        totalCells = (cellsWide * cellsHigh);
-        totalVariants = (numVariants * numEachVariant);
+        this.cellsWide = this.difficulty.value;
+        this.cellsHigh = this.difficulty.value;
+        this.numVariants = this.difficulty.value;
+        this.numEachVariant = this.difficulty.value;
+        this.totalCells = (this.cellsWide * this.cellsHigh);
+        this.totalVariants = (this.numVariants * this.numEachVariant);
     
-        theVariants = buildVariants(numVariants, numEachVariant)
-    }
+        this.theVariants = this.buildVariants()
+    },
     
     // Run on load
     init: function (){
-        plot(container_wrapper, cellsWide, cellsHigh, numVariants, numEachVariant);
-        addCellListeners();
-        window.timerTimeout = setTimeout(updateTimer, 1000);
-        output.innerHTML = '&nbsp;';
-    }
+        console.log(memoryGame,this);
+        this.setGridVars();
+        this.setUp();
+        this.plot();
+        this.addCellListeners();
+        window.timerTimeout = setTimeout(this.updateTimer, 1000);
+        this.output.innerHTML = '&nbsp;';
+    },
     
     // Build array of variants
-    buildVariants: function (num_variants, num_each_variant){
-        variantList = [];
-        for(x=0;x<=num_variants;x++){
-        variantList.push([]);
-        variantList[x].push('variant_'+x);
-        variantList[x].push(num_each_variant);
+    buildVariants: function (){
+        let variantList = [];
+        for(x=0;x<=this.numVariants;x++){
+            variantList.push([]);
+            variantList[x].push('variant_'+x);
+            variantList[x].push( this.numEachVariant );
         }
         return variantList;
-    }
+    },
     
     // Create grid 
     // Example grid-row: 
@@ -99,221 +106,220 @@ const memoryGame = {
     //   <div id="cell_0_0" class="cell cell_0_0 variant_1"></div>
     //   <div id="cell_0_1" class="cell cell_0_1 variant_0"></div>
     // </div>
-    plot: function (container, cellswide, cellshigh, num_variants, num_each_variant){
+    plot: function (){
+
+        this.container.style.height = this.gameHeight+'px';
+        this.container.style.width = this.gameWidth+'px';
+
+        for(x=0;x<this.cellsHigh;x++){
     
-        variants = theVariants;
-    
-        for(x=0;x<cellshigh;x++){
-    
-        var lengthContainer = document.createElement('div');
-    
-        container.style.height = gameHeight+'px';
-        container.style.width = gameWidth+'px';
-    
-        container.appendChild(lengthContainer);
+            const lengthContainer = document.createElement('div');
+            this.container.appendChild(lengthContainer);
             lengthContainer.style.width = '100%';
-            lengthContainer.style.height = (gameHeight/cellshigh)+'px';
+            lengthContainer.style.height = (this.gameHeight/this.cellsHigh)+'px';
             lengthContainer.id = 'length_'+x;
             lengthContainer.className = 'length num'+x;
-    
-        // This variable must be cast after .appendChild(lengthContainer)
-        var lengthCurrent = document.getElementById('length_'+x);
-    
-        for(y=0;y<cellswide;y++){
-    
-            var cellContainer = document.createElement('div');
-    
-            lengthCurrent.appendChild(cellContainer);
-            cellContainer.style.width = (gameWidth/cellswide)+'px';
-            cellContainer.style.height = (gameHeight/cellshigh)+'px';
-            cellContainer.id = 'cell_'+x+'_'+y;
-            cellContainer.className = 'cell cell_'+x+'_'+y;
-    
-            cellList.push([]);
-            cellCoords = (x * cellswide) + y;
-    
-            cellList[cellCoords].push('cell_'+x+'_'+y);
-            cellList[cellCoords].push(num_variants);
-    
-            assignVariant(cellContainer, variants, num_variants);
-            //console.log(cellList);assignVariant(cellContainer);
+        
+            // This variable must be cast after .appendChild(lengthContainer)
+            const lengthCurrent = document.getElementById('length_'+x);
+        
+            for(y=0;y<this.cellsWide;y++){
+        
+                const cellContainer = document.createElement('div');
+        
+                lengthCurrent.appendChild(cellContainer);
+                cellContainer.style.width = (this.gameWidth/this.cellsWide)+'px';
+                cellContainer.style.height = (this.gameHeight/this.cellsWide)+'px';
+                cellContainer.id = 'cell_'+x+'_'+y;
+                cellContainer.className = 'cell cell_'+x+'_'+y;
+        
+                cellCoords = (x * this.cellsWide) + y;
+                this.cellList[cellCoords] = [];
+                this.cellList[cellCoords].push('cell_'+x+'_'+y);
+                this.cellList[cellCoords].push(this.numVariants);
+        
+                this.assignVariant(cellContainer);
+                // console.log(this.cellList);//assignVariant(cellContainer);
+            }
         }
-        }
-    }
+    },
     
     // add .variant_# to .cell
-    assignVariant: function (elem, variant_list, num_variants){
-        currentVariant = getRandomInt(0,num_variants);
+    assignVariant: function (elem){
+        currentVariant = this.getRandomInt(0,this.numVariants);
     
-        if(totalVariants){
-        currentVariant = getRandomInt(0,num_variants);
-        // +1 to randomInt limit for buffer cells (bonus, traps, etc...)
-        if(theVariants[currentVariant][1]>0){
-            currentVariantCount = theVariants[currentVariant][1];
-            elem.className = elem.className+' variant_'+currentVariant;
-            theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
-            totalVariants--;
+        if(this.totalVariants){
+
+            currentVariant = this.getRandomInt(0,this.numVariants);
+            console.log('this.theVariants',this.theVariants,'currentVariant',currentVariant);
+
+            // +1 to randomInt limit for buffer cells (bonus, traps, etc...)
+            if(this.theVariants[currentVariant][1]>0){
+                // currentVariantCount = this.theVariants[currentVariant][1];
+                elem.className = elem.className+' variant_'+currentVariant;
+                this.theVariants[currentVariant][1] = (this.theVariants[currentVariant][1]-1);
+                this.totalVariants--;
+            }else{
+                this.assignVariant(elem);
+            }
+
         }else{
-            assignVariant(elem, variant_list, num_variants);
+            elem.className = elem.className+' variant_empty';
         }
-        }else{
-        elem.className = elem.className+' variant_empty';
-        }
-        // console.log(currentVariantCount,totalVariants);
-    }
+        console.log( 'currentVariant',currentVariant,'this.totalVariants',this.totalVariants);
+    },
     
     // Loop grid of divs & add event listeners
     addCellListeners: function (){
-        var cellElems = container_wrapper.getElementsByClassName('cell');
+        var cellElems = this.container.getElementsByClassName('cell');
         for (var i = 0; i < cellElems.length; i++) {
-        cellElems[i].addEventListener('click', clickCell, false);
+            cellElems[i].addEventListener('click', this.clickCell, false);
         }
-    }
+    },
     
     // Clickhandler for div.cell
     clickCell: function (){
         // todo add 'empty' exception in rand# +1 to max include 'empty' before indexes reach 0
-        /* DEBUG */// if (gameOn == false) { fixErrorsModal(); return; };
+        /* DEBUG */// if (this.gameOn == false) { fixErrorsModal(); return; };
     
         var self = this;
         var itMatched = false;
         var pushCell = true;
-        var chainMatches = false;
+        // var chainMatches = false;
     
         var varClassRe = /variant_\d+/;varClass = varClassRe.exec(self.className);
         var varCellRe = /cell_\d+_\d+/;varCell = varCellRe.exec(self.className);
-    
-        for(i=0;i<clickedCells.length;i++){
-        if(varCell==clickedCells[i][0]){
-            pushCell = false;
-        }
+
+        for(i=0;i<this.clickedCells.length;i++){
+            if(varCell==this.clickedCells[i][0]){
+                pushCell = false;
+            }
         }
     
         if(pushCell){
-        allMatched.push(varClass);
-        clickedCells.push(varCell);
+            this.allMatched.push(varClass);
+            this.clickedCells.push(varCell);
         }
     
         for(i=0;i<allMatched.length;i++){
-        if(allMatched[0][0]==allMatched[i][0]){
-            itMatched = true;
-        }else{
-            itMatched = false;
-        }
+            if(allMatched[0][0]==allMatched[i][0]){
+                itMatched = true;
+            }else{
+                itMatched = false;
+            }
         }
     
         if(allMatched.length == numEachVariant){
-        completeMatches.push(allMatched);
-        allMatched = [];
+            this.completeMatches.push(allMatched);
+            this.allMatched = [];
         }
     
         // console.log('clicked variants: '+allMatched, ' & clicked cells: '+clickedCells);
-        output.innerHTML = ' -  clicked variants: '+allMatched, ' & clicked cells: '+clickedCells;
+        this.output.innerHTML = ' -  clicked variants: '+allMatched, ' & clicked cells: '+clickedCells;
     
         /* drop or keep score on previous cell click - consider toggle */
         if(itMatched == true && pushCell == false){
-        matchScore = 0;
-        allMatched = [];
-        clickedCells = [];
-        completeMatches = [];
-        output.innerHTML = 'You clicked that one already! Try Again';
-        resetTimer();
+            this.matchScore = 0;
+            this.allMatched = [];
+            this.clickedCells = [];
+            this.completeMatches = [];
+            this.output.innerHTML = 'You clicked that one already! Try Again';
+            this.resetTimer();
         }else if(itMatched == true){
-        matchScore++;
-        var responseEncouragement = [
-            'Win!', 'Epic!', 'Great!', 'Sweet!', 'Awesome!', 'Fantastic!', '#likeaboss', 'Ya done good.', 'You Rule!', 'Nicely Done!',
-            'Whoaly Crow!', 'Boo Yeah!', 'Good One!', 'Nice One!', 'Rock Star!', 'Very Good!', 'Way to Go!', 'Top Knotch!',
-        ];
-        var winPhrase = responseEncouragement[Math.floor(Math.random() * responseEncouragement.length)];
-        output.innerHTML = winPhrase+' '+matchScore+' in a row';
-        /* DEBUG */// output.innerHTML += '<br>clickedCells: '+clickedCells;
-        /* DEBUG */// output.innerHTML += '<br>allMatched: '+allMatched;
-        /* DEBUG */// output.innerHTML += '<br>completeMatches: '+completeMatches;
-        console.log(completeMatches);
-    
-        if(completeMatches.length == numVariants){
-            var matchTime = timer.innerHTML;
-            output.innerHTML += '<div id="game_complete">Game Complete! You made '+matchScore+' correct selections in '+matchTime+'</div>';
-            output.innerHTML += '<div id="play_again">Play Again? Select a different difficulty level!</div>';
-    
-            // saveHighScore(matchScore,matchTime);
-    
-            matchScore = 0;
-            allMatched = [];
-            clickedCells = [];
-            completeMatches = [];
-    
-            resetTimer();
-    
-            // todo: add new-game button to init.
-            // var play_again = document.getElementById('play_again');
-            // play_again.addEventListener('click', window.location.reload(), false);
-    
-        }
+            this.matchScore++;
+            var responseEncouragement = [
+                'Win!', 'Epic!', 'Great!', 'Sweet!', 'Awesome!', 'Fantastic!', '#likeaboss', 'Ya done good.', 'You Rule!', 'Nicely Done!',
+                'Whoaly Crow!', 'Boo Yeah!', 'Good One!', 'Nice One!', 'Rock Star!', 'Very Good!', 'Way to Go!', 'Top Knotch!',
+            ];
+            var winPhrase = responseEncouragement[Math.floor(Math.random() * responseEncouragement.length)];
+            this.output.innerHTML = winPhrase+' '+this.matchScore+' in a row';
+            /* DEBUG */// output.innerHTML += '<br>clickedCells: '+clickedCells;
+            /* DEBUG */// output.innerHTML += '<br>allMatched: '+allMatched;
+            /* DEBUG */// output.innerHTML += '<br>completeMatches: '+completeMatches;
+            console.log(this.completeMatches);
+        
+            if(this.completeMatches.length == this.numVariants){
+                var matchTime = timer.innerHTML;
+                this.output.innerHTML += '<div id="game_complete">Game Complete! You made '+matchScore+' correct selections in '+matchTime+'</div>';
+                this.output.innerHTML += '<div id="play_again">Play Again? Select a different difficulty level!</div>';
+        
+                // saveHighScore(matchScore,matchTime);
+        
+                this.matchScore = 0;
+                this.allMatched = [];
+                this.clickedCells = [];
+                this.completeMatches = [];
+        
+                this.resetTimer();
+        
+                // todo: add new-game button to init.
+                // var play_again = document.getElementById('play_again');
+                // play_again.addEventListener('click', window.location.reload(), false);
+        
+            }
         }else{
-            matchScore = 0;
-            allMatched = [];
-            clickedCells = [];
-            completeMatches = [];
-            output.innerHTML = 'Sorry! Try Again';
-            resetTimer();
+            this.matchScore = 0;
+            this.allMatched = [];
+            this.clickedCells = [];
+            this.completeMatches = [];
+            this.output.innerHTML = 'Sorry! Try Again';
+            this.resetTimer();
         }
-    }
-    
-    
+    },
     
     inputParamsChanged: function (){
-    
-        setGridVars();
+        console.log('inputParamsChanged');
+        this.setGridVars();
         /* DEBUG */// cell_output.innerHTML = totalCells;
         /* DEBUG */// variant_output.innerHTML = totalVariants;
         /* DEBUG */// console.log('currentVariantCount',totalVariants);
-        matchScore = 0;
-        allMatched = [];
-        clickedCells = [];
-        completeMatches = [];
-        output.innerHTML = '&nbsp;';
+        this.matchScore = 0;
+        this.allMatched = [];
+        this.clickedCells = [];
+        this.completeMatches = [];
+
+        this.output.innerHTML = '&nbsp;';
     
-        checkGameInput(totalVariants,totalCells);
-        clear_children(container_wrapper);
-        theVariants = buildVariants(numVariants, numEachVariant);
+        // this.checkGameInput(this.totalVariants,this.totalCells);
+        this.clearChildren(this.container);
+        this.theVariants = buildVariants();
     
-        plot(container_wrapper,cellsWide,cellsHigh,numVariants,numEachVariant);
-        addCellListeners();
+        this.plot();
+        this.addCellListeners();
     
-        resetTimer();
-    }
+        this.resetTimer();
+    },
     
     checkGameInput: function (theTotalVariants,theTotalCells){
         if (theTotalVariants == theTotalCells) {
-        gameOn = true;
-        /* DEBUG */// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant;
-        /* DEBUG */// validation_notification.innerHTML += ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
+            this.gameOn = true;
+            /* DEBUG */// validation_notification.innerHTML = 'Your game looks perfect ' + numVariants + ' Variants x ' + numEachVariant;
+            /* DEBUG */// validation_notification.innerHTML += ' of Each Variant fits perfectly on a ' + cellsWide + 'x' + cellsHigh + ' Grid';
         } else {
-        if (theTotalVariants > theTotalCells) {
-            gameOn = false;
-            /* DEBUG */// validation_notification.innerHTML = '<strong class=\'error too-many-variants\'>' + numVariants + ' Variants x ' + numEachVariant;
-            /* DEBUG */// validation_notification.innerHTML += ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.';
-            /* DEBUG */// validation_notification.innerHTML += '<br> Please use fewer variants or a larger grid.</span>';
-        } else {
-            if (theTotalVariants < theTotalCells) {
-            gameOn = true;
-            /* DEBUG */// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more ';
-            /* DEBUG */// validation_notification.innerHTML += 'variants, more of each variant... or just play the game!';
+            if (theTotalVariants > theTotalCells) {
+                this.gameOn = false;
+                /* DEBUG */// validation_notification.innerHTML = '<strong class=\'error too-many-variants\'>' + numVariants + ' Variants x ' + numEachVariant;
+                /* DEBUG */// validation_notification.innerHTML += ' of Each Variant is more than a ' + cellsWide + 'x' + cellsHigh + ' Grid can support.';
+                /* DEBUG */// validation_notification.innerHTML += '<br> Please use fewer variants or a larger grid.</span>';
             } else {
-            gameOn = false;
-            /* DEBUG */// validation_notification.innerHTML = '&nbsp';
+                if (theTotalVariants < theTotalCells) {
+                    this.gameOn = true;
+                    /* DEBUG */// validation_notification.innerHTML = 'Looking good! But You have some empty-cells.<br> You can add more ';
+                    /* DEBUG */// validation_notification.innerHTML += 'variants, more of each variant... or just play the game!';
+                } else {
+                    this.gameOn = false;
+                    /* DEBUG */// validation_notification.innerHTML = '&nbsp';
+                }
             }
         }
-        }
-    }
+    },
     
     /* DEBUG */// function fixErrorsModal() {
         /* DEBUG *///   alert('Please fix game config before playing');
     /* DEBUG */// }
     
     updateTimer: function () {
-        var myTime = timer.innerHTML;
+        var myTime = this.timer.innerHTML;
         var ss = myTime.split(':');
         var dt = new Date();
         dt.setHours(ss[0]);
@@ -322,20 +328,27 @@ const memoryGame = {
     
         var dt2 = new Date(dt.valueOf() + 1000);
         var ts = dt2.toTimeString().split(' ')[0];
-        timer.innerHTML = ts;
-        window.timerTimeout = setTimeout(updateTimer, 1000);
-    }
+        this.timer.innerHTML = ts;
+        window.timerTimeout = setTimeout(this.updateTimer, 1000);
+    },
     
     resetTimer: function (){
         window.clearTimeout(timerTimeout);
         document.getElementById('timer').innerHTML = '00:00:00';
         window.timerTimeout = setTimeout(updateTimer, 1000);
-    }
+    },
     
-    clear_children: function (target){
+    clearChildren: function (target){
         while (target.firstChild) {
-        target.removeChild(target.firstChild);
+            target.removeChild(target.firstChild);
         }
-    }
+    },
+
+    getRandomInt: function (min, max) {
+        return Math.floor(Math.random() * (max - min)) + min;
+      }
+
 };
+
+document.addEventListener('DOMContentLoaded', memoryGame.init());
 
