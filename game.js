@@ -146,7 +146,7 @@ function assignVariant(elem, variant_list, num_variants){
       theVariants[currentVariant][1] = (theVariants[currentVariant][1]-1);
       totalVariants--;
     }else{
-      assignVariant(elem, variants, num_variants);
+      assignVariant(elem, variant_list, num_variants);
     }
   }else{
     elem.className = elem.className+' variant_empty';
