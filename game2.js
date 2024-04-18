@@ -6,7 +6,9 @@
 
 const memoryGame = {
     gameWidth: document.getElementById('main').offsetWidth,
-    gameHeight: 500,//this.gameWidth * 0.65,
+    get gameHeight() {
+        return this.gameWidth * 0.65;
+    },
     
     container: document.getElementById('container_wrapper'),
     difficulty: document.getElementById('difficulty'),
@@ -20,8 +22,12 @@ const memoryGame = {
     numVariants: this.difficulty.value,
     numEachVariant: this.difficulty.value,
     
-    totalCells: (this.cellsWide * this.cellsHigh),
-    totalVariants: (this.numVariants*this.numEachVariant),
+    get totalCells() {
+        return this.cellsWide * this.cellsHigh;
+    },
+    get totalVariants () {
+        return this.numVariants*this.numEachVariant;
+    },
 
     // getVariants: function (num_variants, num_each_variant){
     //     return this.buildVariants();
@@ -80,7 +86,7 @@ const memoryGame = {
     
     // Run on load
     init: function (){
-        console.log(memoryGame,this);
+        // console.log(memoryGame,this);
         this.setGridVars();
         this.setUp();
         this.plot();
@@ -171,10 +177,21 @@ const memoryGame = {
     
     // Loop grid of divs & add event listeners
     addCellListeners: function (){
-        var cellElems = this.container.getElementsByClassName('cell');
+        const cellElems = this.container.getElementsByClassName('cell');
         for (var i = 0; i < cellElems.length; i++) {
             cellElems[i].addEventListener('click', this.clickCell, false);
         }
+
+        // console.log('addCellListeners');
+        // Array.from(this.container.getElementsByClassName("cell")).forEach(
+        //     function(element, index, array) {
+        //         element.addEventListener('click', this.clickCell, false);
+        //     }
+        // );
+        // const els = this.container.getElementsByClassName('cell');
+        // Array.prototype.forEach.call(els, function (el) {
+        //     el.addEventListener('click', this.clickCell, false);
+        // });
     },
     
     // Clickhandler for div.cell
